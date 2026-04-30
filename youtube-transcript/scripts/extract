@@ -58,7 +58,7 @@ def _format_info(info: dict) -> str:
             continue
         if isinstance(value, list):
             value = ", ".join(str(v) for v in value)
-        lines.append(f"{key}: {value}")
+        lines.append(f"{key.upper()}: {value}")
     lines.append("\n")
     return "\n".join(lines)
 
@@ -81,11 +81,89 @@ def _resolve_lang(info: dict, lang: str) -> str:
     raise RuntimeError("No subtitles available for this video")
 
 
+def _download_subtitles(url: str, tmpdir: str, selected: str) -> list:
+    """Download subtitles and return list of VTT filenames."""
+    sub_opts = {
+        "skip_download": True,
+        "writeautomaticsub": True,
+        "writesubtitles": True,
+        "subtitleslangs": [selected],
+        "subtitlesformat": "vtt",
+        "outtmpl": os.path.join(tmpdir, "%(id)s.%(ext)s"),
+        "quiet": True,
+        "no_warnings": True,
+        "progress_hooks": [],
+    }
+    devnull_fd = os.open(os.devnull, os.O_WRONLY)
+    old_out_fd = os.dup(1)
+    old_err_fd = os.dup(2)
+    os.dup2(devnull_fd, 1)
+    os.dup2(devnull_fd, 2)
+    os.close(devnull_fd)
+
+    try:
+        with YoutubeDL(sub_opts) as inner_ydl:
+            inner_ydl.download([url])
+    finally:
+        os.dup2(old_out_fd, 1)
+        os.dup2(old_err_fd, 2)
+        os.close(old_out_fd)
+        os.close(old_err_fd)
+
+    return [p for p in os.listdir(tmpdir) if p.endswith(".vtt")]
+
+
+def _try_auto_subtitles(info: dict, url: str, tmpdir: str, fallback_lang: str = None) -> list:
+    """Try to download auto-generated subtitles as a fallback.
+
+    If fallback_lang is specified (e.g. 'en'), try that first, then other
+    available auto-generated languages. Otherwise try all available langs.
+
+    Returns list of VTT filenames, or empty list if none found.
+    """
+    auto_subs = info.get("automatic_captions")
+    if not auto_subs:
+        return []
+
+    # Collect all available auto-generated language codes
+    # Structure: {"ab": [{"ext": "vtt", "url": "..."}, ...], "en": [...]}
+    langs = set()
+    for lang_code, formats in auto_subs.items():
+        if isinstance(formats, list) and formats:
+            langs.add(lang_code)
+
+    if not langs:
+        return []
+
+    # Build ordered list: fallback_lang first (if specified and available), then rest
+    ordered_langs = []
+    if fallback_lang and fallback_lang in langs:
+        ordered_langs.append(fallback_lang)
+        langs.discard(fallback_lang)
+    ordered_langs.extend(sorted(langs))
+
+    # Try each language with retries to avoid HTTP 429 rate limiting
+    for lang_code in ordered_langs:
+        for attempt in range(3):
+            try:
+                vtt_files = _download_subtitles(url, tmpdir, lang_code)
+                if vtt_files:
+                    return vtt_files
+                break  # No files for this language, move to next
+            except Exception:
+                if attempt < 2:
+                    time.sleep(3 * (attempt + 1))  # Exponential backoff: 3s, 6s
+                else:
+                    sys.stderr.write(f"  Failed for language '{lang_code}' after 3 attempts\n")
+    return []
+
+
 def extract_transcript(url: str, lang: str, raw: bool = False) -> Tuple[dict, str]:
     """Extract transcript from a YouTube video using the yt-dlp Python module.
 
     Performs a single extract_info call to get both video metadata and
     subtitle availability, then downloads the requested subtitles.
+    If the primary transcript fails, falls back to auto-generated subtitles.
 
     Args:
         url: YouTube video URL.
@@ -111,38 +189,15 @@ def extract_transcript(url: str, lang: str, raw: bool = False) -> Tuple[dict, st
     # Resolve 'auto' to the actual source language
     selected = _resolve_lang(info, lang)
 
-    # Download subtitles
     with tempfile.TemporaryDirectory() as tmpdir:
-        sub_opts = {
-            "skip_download": True,
-            "writeautomaticsub": True,
-            "writesubtitles": True,
-            "subtitleslangs": [selected],
-            "subtitlesformat": "vtt",
-            "outtmpl": os.path.join(tmpdir, "%(id)s.%(ext)s"),
-            "quiet": True,
-            "no_warnings": True,
-            "progress_hooks": [],
-        }
-        # Redirect actual file descriptors to suppress yt-dlp progress output
-        devnull_fd = os.open(os.devnull, os.O_WRONLY)
-        old_out_fd = os.dup(1)
-        old_err_fd = os.dup(2)
-        os.dup2(devnull_fd, 1)
-        os.dup2(devnull_fd, 2)
-        os.close(devnull_fd)
+        # --- Primary attempt: requested language subtitles ---
+        vtt_files = _download_subtitles(url, tmpdir, selected)
 
-        try:
-            time.sleep(2)  # Be polite to YouTube API between calls
-            with YoutubeDL(sub_opts) as ydl:
-                ydl.download([url])
-        finally:
-            os.dup2(old_out_fd, 1)
-            os.dup2(old_err_fd, 2)
-            os.close(old_out_fd)
-            os.close(old_err_fd)
+        # --- Fallback: auto-generated subtitles ---
+        if not vtt_files:
+            fallback_lang = "en" if lang == "auto" else None
+            vtt_files = _try_auto_subtitles(info, url, tmpdir, fallback_lang=fallback_lang)
 
-        vtt_files = [p for p in os.listdir(tmpdir) if p.endswith(".vtt")]
         if not vtt_files:
             return info, "ERROR: did not produce a transcript"
 
@@ -186,7 +241,7 @@ def main() -> int:
         info, text = extract_transcript(url, args.lang, raw=args.raw)
         if args.info:
             print(_format_info(info))
-            print("script:")
+            print("TRANSCRIPT:")
         print(text)
         return 0
     except Exception as exc:
