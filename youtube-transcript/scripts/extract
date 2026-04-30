@@ -144,7 +144,7 @@ def extract_transcript(url: str, lang: str, raw: bool = False) -> Tuple[dict, st
 
         vtt_files = [p for p in os.listdir(tmpdir) if p.endswith(".vtt")]
         if not vtt_files:
-            raise RuntimeError("yt-dlp module did not produce a .vtt file")
+            return info, "ERROR: did not produce a transcript"
 
         vtt_path = os.path.join(tmpdir, vtt_files[0])
         with open(vtt_path, "r", encoding="utf-8") as f:
@@ -154,7 +154,7 @@ def extract_transcript(url: str, lang: str, raw: bool = False) -> Tuple[dict, st
 
 
 def main() -> int:
-    """CLI entry point for yt-dlp module transcript extraction."""
+    """CLI entry point for transcript extraction."""
     parser = argparse.ArgumentParser(
         description="Extract YouTube transcript using yt-dlp Python module."
     )
