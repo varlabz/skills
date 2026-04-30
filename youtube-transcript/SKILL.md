@@ -13,7 +13,7 @@ allowed-tools: shell
 
 ## Prerequisites
 
-**Python Dependencies**:
+**Dependencies**:
 - The script uses `uvx` to run with yt-dlp dependency automatically
 
 ## Procedure
@@ -23,34 +23,34 @@ allowed-tools: shell
 Use the script to extract transcript for a specific YouTube video:
 
 ```bash
-./scripts/extract.py VIDEO_ID_OR_URL [--language LANG] [--info]
+./scripts/extract VIDEO_ID_OR_URL [--language LANG] [--info]
 ```
 
 ### Examples
 
 Get transcript for a specific video:
 ```bash
-./scripts/extract.py dQw4w9WgXcQ
+./scripts/extract dQw4w9WgXcQ
 ```
 
 Get transcript from a YouTube URL:
 ```bash
-./scripts/extract.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+./scripts/extract "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 ```
 
 Get transcript in Spanish:
 ```bash
-./scripts/extract.py dQw4w9WgXcQ --language es
+./scripts/extract dQw4w9WgXcQ --language es
 ```
 
 Get video info along with transcript:
 ```bash
-./scripts/extract.py dQw4w9WgXcQ --info
+./scripts/extract dQw4w9WgXcQ --info
 ```
 
 Get raw VTT transcript:
 ```bash
-./scripts/extract.py dQw4w9WgXcQ --raw
+./scripts/extract dQw4w9WgXcQ --raw
 ```
 
 ## Output Format
