@@ -2,6 +2,7 @@
 name: youtube-transcript
 description: 'Extract transcripts from YouTube videos. Use for getting video transcripts for analysis, summarization, or content extraction. Supports video ID or URL lookup, configurable language selection, and output formats.'
 argument-hint: 'YouTube video ID or URL, optional: --language LANG --info'
+compatibility: Requires uv
 allowed-tools: shell
 ---
 
