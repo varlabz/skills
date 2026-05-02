@@ -12,12 +12,6 @@ description: 'Use to convert files (PDF, Word, Excel, PowerPoint, Images, Audio,
 
 ## Procedure
 
-### File and Web pages Conversion
-Run `uvx markitdown` on the file path or URL:
-```bash
-uvx markitdown <path_or_url>
-```
-
 ### YouTube Transcript
 To extract YouTube captions, run the [youtube-transcript script](scripts/youtube-transcript):
 ```bash
@@ -34,3 +28,10 @@ scripts/youtube-transcript --info <youtube_video_id_or_url>
 ```bash
 scripts/mhtml-to-html <path_or_url> | uvx markitdown
 ```
+
+### File and Web pages Conversion
+Run `uvx markitdown` on the file path or URL:
+```bash
+uvx markitdown <path_or_url>
+```
+
