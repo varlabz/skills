@@ -1,67 +1,33 @@
 ---
 name: youtube-transcript
 description: 'Extract transcripts from YouTube videos. Use for getting video transcripts for analysis, summarization, or content extraction. Supports video ID or URL lookup, configurable language selection, and output formats.'
-argument-hint: 'YouTube video ID or URL, optional: --language LANG --info'
+argument-hint: 'YouTube video ID or URL, optional: --lang LANG --info --raw'
 compatibility: Requires uv
 allowed-tools: shell
 ---
 
 # YouTube Transcript Skill
 
-## When to Use
-- Retrieve transcripts for YouTube videos (when available)
-- Extract text content from videos for analysis or summarization
-
-## Prerequisites
-
-**Dependencies**:
-- The script uses `uvx` to run with yt-dlp dependency automatically
-
-## Procedure
-
-### Extract Transcript from YouTube Video
-
-Use the script to extract transcript for a specific YouTube video:
+## Usage
 
 ```bash
-scripts/extract VIDEO_ID_OR_URL [--language LANG] [--info]
+scripts/extract VIDEO_ID_OR_URL [--lang LANG] [--info] [--raw]
 ```
 
-### Examples
+- `VIDEO_ID_OR_URL`: YouTube video ID or full URL
+- `--lang LANG`: language code (e.g. `en`, `es`); defaults to auto-detect
+- `--info`: also print video metadata (title, description, etc.)
+- `--raw`: output raw VTT instead of cleaned text
 
-Get transcript for a specific video:
+## Examples
+
 ```bash
 scripts/extract dQw4w9WgXcQ
+scripts/extract "https://www.youtube.com/watch?v=dQw4w9WgXcQ" --info
+scripts/extract dQw4w9WgXcQ --lang es
 ```
-
-Get transcript from a YouTube URL:
-```bash
-scripts/extract "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-```
-
-Get transcript in Spanish:
-```bash
-scripts/extract dQw4w9WgXcQ --language es
-```
-
-Get video info along with transcript:
-```bash
-scripts/extract dQw4w9WgXcQ --info
-```
-
-Get raw VTT transcript:
-```bash
-scripts/extract dQw4w9WgXcQ --raw
-```
-
-## Output Format
-
-The script outputs cleaned transcript text by default. 
-With `--info`, it also outputs video metadata. 
-With `--raw`, it outputs the raw VTT transcript.
 
 ## Notes
 
-- Transcripts are only available for videos that have captions enabled
-- Some videos may not have transcripts available in the requested language
-- For best results, provide video ID or full YouTube URL
+- Transcripts are only available for videos with captions enabled
+- Falls back to auto-generated captions if manual captions are unavailable
