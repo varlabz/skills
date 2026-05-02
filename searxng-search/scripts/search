@@ -101,7 +101,7 @@ def main():
         description="Search a local SearXNG instance",
         epilog="Set SEARXNG_URL environment variable to override the default instance URL."
     )
-    parser.add_argument("--query", "-q", required=True, help="Search query")
+    parser.add_argument("query", nargs="+", help="Search query")
     parser.add_argument("--engine", "-e", default="general",
                         choices=SEARXNG_CATEGORIES,
                         help=cat_help)
@@ -122,8 +122,9 @@ def main():
                         help="SearXNG instance URL (overrides SEARXNG_URL env)")
     args = parser.parse_args()
 
+    query = " ".join(args.query)
     results = search(
-        query=args.query,
+        query=query,
         engine=args.engine,
         max_results=args.max_results,
         language=args.language,
@@ -135,7 +136,7 @@ def main():
     if args.format == "json":
         format_json(results)
     else:
-        format_text(results, args.query)
+        format_text(results, query)
 
 
 if __name__ == "__main__":
