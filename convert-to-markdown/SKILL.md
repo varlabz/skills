@@ -1,6 +1,6 @@
 ---
 name: convert-to-markdown
-description: 'Use to convert files (PDF, Word, Excel, PowerPoint, Images, Audio, HTML, CSV, JSON, XML, ZIP, EPubs, MHTML) and URLs (YouTube URL, YouTube ID) into Markdown natively.'
+description: 'Use to convert files (PDF, Word, Excel, PowerPoint, Images, Audio, HTML, HTM, CSV, JSON, XML, ZIP, EPubs, MHTML) and URLs (YouTube URL, YouTube ID) into Markdown natively.'
 ---
 
 # Convert files and URLs into Markdown with tools
