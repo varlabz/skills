@@ -6,9 +6,9 @@ description: 'Use to convert files (PDF, Word, Excel, PowerPoint, Images, Audio,
 # Convert files and URLs into Markdown with tools
 
 ## When to Use
-- You need to read documents or data and pipe them into Markdown context
+- You need to read documents or data and pipe them into a Markdown context
 - You need a transcript of a YouTube video
-- Converting PDF, DOCX, PPTX, XLSX, CSV, JSON, XML, Images, Audio, HTML, ZIP, EPubs, MHTML
+- Converting PDF, DOCX, PPTX, XLSX, CSV, JSON, XML, Images, Audio, HTML, HTM, ZIP, EPubs, MHTML
 
 ## Procedure
 
