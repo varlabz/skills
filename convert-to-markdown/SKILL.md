@@ -15,18 +15,18 @@ description: 'Use to convert files (PDF, Word, Excel, PowerPoint, Images, Audio,
 ### YouTube Transcript
 To extract YouTube captions, run the [youtube-transcript script](scripts/youtube-transcript):
 ```bash
-scripts/youtube-transcript <youtube_video_id_or_url>
+./scripts/youtube-transcript <youtube_video_id_or_url>
 ```
 
 ### YouTube Transcript with metadata
 To extract YouTube captions along with metadata, run the [youtube-transcript script](scripts/youtube-transcript):
 ```bash
-scripts/youtube-transcript --info <youtube_video_id_or_url>
+./scripts/youtube-transcript --info <youtube_video_id_or_url>
 ```
 
 ### MHTML to Markdown
 ```bash
-scripts/mhtml-to-html <path_or_url> | uvx markitdown
+./scripts/mhtml-to-html <path_or_url> | uvx markitdown
 ```
 
 ### File and Web pages Conversion
@@ -34,4 +34,3 @@ Run `uvx markitdown` on the file path or URL:
 ```bash
 uvx markitdown <path_or_url>
 ```
-
