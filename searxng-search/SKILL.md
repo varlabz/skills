@@ -10,14 +10,12 @@ allowed-tools: shell
 Run [scripts/search](scripts/search):
 
 ```bash
-scripts/search "your query" [options]
+./scripts/search "your query" [options]
 ```
 
 **Key options:** `-e` engine (general|news|it|science|images…), `-n` max results (default 10), `-t` time range (day|week|month|year), `-f` format (text|json), `--url` override instance URL.
 
 ```bash
-scripts/search "AI breakthroughs" -e news -t month
-scripts/search "Python best practices" -f json -n 15
+./scripts/search "AI breakthroughs" -e news -t month
+./scripts/search "Python best practices" -f json -n 15
 ```
-
-Instance URL defaults to `$SEARXNG_URL` env var, then `http://localhost:8080`.
