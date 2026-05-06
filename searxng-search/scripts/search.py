@@ -115,7 +115,7 @@ def main():
     parser.add_argument("--time-range", "-t", default=None,
                         choices=["day", "week", "month", "year"],
                         help="Filter by time range")
-    parser.add_argument("--format", "-f", default="text",
+    parser.add_argument("--format", "-f", default="json",
                         choices=["text", "json"],
                         help="Output format")
     parser.add_argument("--url", default=None,

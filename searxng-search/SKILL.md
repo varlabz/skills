@@ -7,15 +7,15 @@ allowed-tools: shell
 
 # SearXNG Web Search
 
-Run [scripts/search](scripts/search):
+Run [scripts/search](scripts/search.py):
 
 ```bash
-./scripts/search "your query" [options]
+scripts/search.py "your query" [options]
 ```
 
 **Key options:** `-e` engine (general|news|it|science|images…), `-n` max results (default 10), `-t` time range (day|week|month|year), `-f` format (text|json), `--url` override instance URL.
 
 ```bash
-./scripts/search "AI breakthroughs" -e news -t month
-./scripts/search "Python best practices" -f json -n 15
+scripts/search.py "AI breakthroughs" -e news -t month -f json 
+scripts/search.py "Python best practices" -f json -n 15
 ```
