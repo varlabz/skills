@@ -3,11 +3,12 @@ name: convert-to-markdown
 description: "Use when converting files or web content to Markdown. Supports extracting YouTube video transcripts (requires URL or video ID) and converting MHTML files/web pages into Markdown for easier reading and processing."
 ---
 
-# Convert URLs into Markdown with tools
+# Convert Files and URLs to Markdown
 
 ## When to Use
 - You need a transcript of a YouTube video
-- Converting MHTML files or web pages into Markdown format for easier reading and processing.
+- You need to convert an MHTML file or web page into Markdown for easier reading and processing
+- You need to convert a local HTML file into Markdown
 
 ## Procedure
 
@@ -24,6 +25,13 @@ To extract YouTube captions along with metadata, run the [youtube-transcript scr
 ```
 
 ### MHTML to Markdown
+Converts an MHTML file (local path) or a remote MHTML URL into Markdown using MarkItDown.
 ```bash
-./scripts/mhtml-to-html.py <path_or_url> | uvx markitdown
+./scripts/mhtml-to-md.py <path_or_url>
+```
+
+### HTML to Markdown
+Converts a local HTML (or other supported) file into Markdown using MarkItDown directly.
+```bash
+uvx markitdown <path>
 ```

@@ -1,14 +1,15 @@
-#!/usr/bin/env python3
-"""Extract HTML from an MHTML file or URL pointing to an MHTML resource."""
+#!/usr/bin/env -S uvx --with markitdown python 
+"""Convert MHTML (file or URL) to Markdown using MarkItDown."""
 
 import argparse
+import io
 import sys
 import urllib.request
-from email import message_from_bytes, message_from_string
-
+from email import message_from_bytes
+from markitdown import MarkItDown
 
 def extract_html(mhtml_content: bytes) -> str:
-    """Return the largest HTML part from MHTML content."""
+    """Return the largest text/html MIME part from MHTML content."""
     msg = message_from_bytes(mhtml_content)
     largest_html = None
     largest_size = 0
@@ -19,6 +20,7 @@ def extract_html(mhtml_content: bytes) -> str:
             if payload:
                 charset = part.get_content_charset() or "utf-8"
                 html = payload.decode(charset, errors="replace")
+                # Heuristic: the primary page is usually the largest HTML part.
                 if len(html) > largest_size:
                     largest_size = len(html)
                     largest_html = html
@@ -27,7 +29,7 @@ def extract_html(mhtml_content: bytes) -> str:
 
 
 def load_mhtml(source: str) -> bytes:
-    """Load MHTML content from a file path or URL."""
+    """Load raw MHTML bytes from a local path or HTTP(S) URL."""
     if source.startswith("http://") or source.startswith("https://"):
         req = urllib.request.Request(
             source,
@@ -40,9 +42,16 @@ def load_mhtml(source: str) -> bytes:
             return f.read()
 
 
+def html_to_markdown(html: str) -> str:
+    """Convert HTML text to Markdown via MarkItDown's stream API."""
+    stream = io.BytesIO(html.encode("utf-8"))
+    result = MarkItDown().convert_stream(stream, file_extension=".html")
+    return result.text_content
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Extract HTML from an MHTML file or URL."
+        description="Convert MHTML content from a file or URL into Markdown."
     )
     parser.add_argument("source", help="Path to an MHTML file or URL")
     args = parser.parse_args()
@@ -54,4 +63,5 @@ if __name__ == "__main__":
         print("No HTML content found in the MHTML source.", file=sys.stderr)
         sys.exit(1)
 
-    print(html)
+    markdown = html_to_markdown(html)
+    print(markdown)
