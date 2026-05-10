@@ -1,7 +1,7 @@
 ---
 name: searxng-search
 description: 'Search the web using a local SearXNG instance. Use for web searches, finding current information, researching topics, checking news, looking up documentation, or finding recent events. Supports categories: general, news, images, videos, it, science, social media.'
-argument-hint: '<query> [--engine news|it|science|images|videos] [--time-range day|week|month|year] [--max-results 15]'
+argument-hint: 'search query'
 allowed-tools: shell
 ---
 
