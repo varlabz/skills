@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env -S uvx python
 """Search a local SearXNG instance and output results."""
 
 import argparse
@@ -25,8 +25,15 @@ SEARXNG_CATEGORIES = [
 ]
 
 
-def search(query, engine="general", max_results=10, language="en-US",
-           safesearch=0, time_range=None, base_url=None):
+def search(
+    query,
+    engine="general",
+    max_results=10,
+    language="en-US",
+    safesearch=0,
+    time_range=None,
+    base_url=None,
+):
     """Perform a search and return parsed results."""
     base_url = base_url or os.environ.get("SEARXNG_URL", DEFAULT_URL)
 
@@ -84,14 +91,15 @@ def format_json(results):
     """Format results as JSON."""
     output = []
     for r in results:
-        output.append({
-            "title": r.get("title", ""),
-            "url": r.get("url", ""),
-            "engine": r.get("engine", ""),
-            "score": r.get("score", 0),
-            "content": r.get("content", ""),
-            "img_src": r.get("img_src", ""),
-        })
+        output.append(
+            {
+                "title": r.get("title", ""),
+                "url": r.get("url", ""),
+                "engine": r.get("engine", ""),
+                "score": r.get("score", 0),
+                "content": r.get("content", ""),
+            }
+        )
     print(json.dumps(output, indent=2, ensure_ascii=False))
 
 
@@ -99,27 +107,39 @@ def main():
     cat_help = f"SearXNG category: {', '.join(SEARXNG_CATEGORIES)}"
     parser = argparse.ArgumentParser(
         description="Search a local SearXNG instance",
-        epilog="Set SEARXNG_URL environment variable to override the default instance URL."
+        epilog="Set SEARXNG_URL environment variable to override the default instance URL.",
     )
     parser.add_argument("query", nargs="+", help="Search query")
-    parser.add_argument("--engine", "-e", default="general",
-                        choices=SEARXNG_CATEGORIES,
-                        help=cat_help)
-    parser.add_argument("--max-results", "-n", type=int, default=10,
-                        help="Maximum results to return")
-    parser.add_argument("--language", "-l", default="en-US",
-                        help="Language code (e.g. en-US, zh-CN)")
-    parser.add_argument("--safesearch", "-s", type=int, default=0,
-                        choices=[0, 1, 2],
-                        help="Safe search: 0=off, 1=moderate, 2=strict")
-    parser.add_argument("--time-range", "-t", default=None,
-                        choices=["day", "week", "month", "year"],
-                        help="Filter by time range")
-    parser.add_argument("--format", "-f", default="json",
-                        choices=["text", "json"],
-                        help="Output format")
-    parser.add_argument("--url", default=None,
-                        help="SearXNG instance URL (overrides SEARXNG_URL env)")
+    parser.add_argument(
+        "--engine", "-e", default="general", choices=SEARXNG_CATEGORIES, help=cat_help
+    )
+    parser.add_argument(
+        "--max-results", "-n", type=int, default=10, help="Maximum results to return"
+    )
+    parser.add_argument(
+        "--language", "-l", default="en-US", help="Language code (e.g. en-US, zh-CN)"
+    )
+    parser.add_argument(
+        "--safesearch",
+        "-s",
+        type=int,
+        default=0,
+        choices=[0, 1, 2],
+        help="Safe search: 0=off, 1=moderate, 2=strict",
+    )
+    parser.add_argument(
+        "--time-range",
+        "-t",
+        default=None,
+        choices=["day", "week", "month", "year"],
+        help="Filter by time range",
+    )
+    parser.add_argument(
+        "--format", "-f", default="json", choices=["text", "json"], help="Output format"
+    )
+    parser.add_argument(
+        "--url", default=None, help="SearXNG instance URL (overrides SEARXNG_URL env)"
+    )
     args = parser.parse_args()
 
     query = " ".join(args.query)
