@@ -10,8 +10,6 @@ tags: [youtube, transcript, mhtml, html, markdown, web]
 
 These scripts use [`uvx`](https://docs.astral.sh/uv/) to run their dependencies on the fly — no permanent installation needed.
 
-Run any script with `--help` to see its full usage.
-
 ## YouTube Transcript
 
 Extract captions/subtitles from YouTube videos.
@@ -64,22 +62,28 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 
 ## HTML / Web Page to Markdown
 
-Convert any web page URL into Markdown using [crawl4ai](https://github.com/unclecode/crawl4ai).
+Convert any web page URL into Markdown via a Crawl4AI server.
 
 ```bash
-uvx --from crawl4ai crwl <path_or_url> -o markdown -b "headless=true,user_agent_mode=random"
+./scripts/html-to-md.py <url>
 ```
 
-### Example
+**Options:**
+
+| Flag | Description |
+|------|-------------|
+| `-s`, `--server <url>` | Crawl4AI server URL (default: `http://localhost:11235`, or `$CRAWL4AI_URL`) |
+| `-o`, `--output <file>` | Write markdown to a file instead of stdout |
+
+### Examples
 
 ```bash
-uvx --from crawl4ai crwl https://example.com -o markdown -b "headless=true,user_agent_mode=random"
-```
+# Print markdown to stdout
+./scripts/html-to-md.py https://example.com
 
-## Gotchas
+# Save to a file
+./scripts/html-to-md.py https://example.com -o example.md
 
-- **YouTube transcripts** fail for age-restricted, private, or deleted videos. The script will report an error and exit.
-- **YouTube auto-detected language** may not always match the video's spoken language. Use `--lang <code>` to override when the transcript is in the wrong language.
-- **crawl4ai** runs a headless browser, but some heavy JavaScript-rendered SPAs may still produce incomplete output.
-- **MHTML conversion** quality depends on how the archive was created. Some MHTML files contain only the main page markup without embedded resources or styling.
+# Use a custom server
+./scripts/html-to-md.py https://python.org -s http://crawl4ai.lan:11235
 ```
