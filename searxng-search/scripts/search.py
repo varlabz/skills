@@ -2,12 +2,12 @@
 """Search a local SearXNG instance and output results."""
 
 import argparse
+import asyncio
 import json
 import os
 import sys
-import urllib.error
-import urllib.parse
-import urllib.request
+
+import httpx
 
 DEFAULT_URL = "http://localhost:8080"
 
@@ -25,7 +25,7 @@ SEARXNG_CATEGORIES = [
 ]
 
 
-def search(
+async def search(
     query,
     engine="general",
     max_results=10,
@@ -48,19 +48,16 @@ def search(
     if time_range:
         params["time_range"] = time_range
 
-    url = f"{base_url.rstrip('/')}/search?{urllib.parse.urlencode(params)}"
-    req = urllib.request.Request(url, headers={"User-Agent": "local-searxng-skill/1.0"})
+    url = f"{base_url.rstrip('/')}/search"
 
-    try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
-            data = json.loads(resp.read().decode())
-    except urllib.error.URLError as e:
-        print(f"Error: Could not reach SearXNG at {base_url}", file=sys.stderr)
-        print(f"Details: {e}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError:
-        print("Error: SearXNG returned invalid JSON", file=sys.stderr)
-        sys.exit(1)
+    async with httpx.AsyncClient(timeout=15) as client:
+        resp = await client.get(
+            url,
+            params=params,
+            headers={"User-Agent": "local-searxng-skill/1.0"},
+        )
+        resp.raise_for_status()
+        data = resp.json()
 
     results = data.get("results", [])
     return results[:max_results]
@@ -103,7 +100,7 @@ def format_json(results):
     print(json.dumps(output, indent=2, ensure_ascii=False))
 
 
-def main():
+async def main():
     cat_help = f"SearXNG category: {', '.join(SEARXNG_CATEGORIES)}"
     parser = argparse.ArgumentParser(
         description="Search a local SearXNG instance",
@@ -143,7 +140,7 @@ def main():
     args = parser.parse_args()
 
     query = " ".join(args.query)
-    results = search(
+    results = await search(
         query=query,
         engine=args.engine,
         max_results=args.max_results,
@@ -160,4 +157,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
