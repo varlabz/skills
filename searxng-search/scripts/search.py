@@ -5,7 +5,6 @@ import argparse
 import asyncio
 import json
 import os
-import sys
 
 import httpx
 
@@ -27,7 +26,7 @@ SEARXNG_CATEGORIES = [
 
 async def search(
     query,
-    engine="general",
+    categories="general",
     max_results=10,
     language="en-US",
     safesearch=0,
@@ -40,7 +39,7 @@ async def search(
     params = {
         "q": query,
         "format": "json",
-        "engines": engine,
+        "categories": categories,
         "language": language,
         "safesearch": str(safesearch),
         "pageno": "1",
@@ -108,7 +107,10 @@ async def main():
     )
     parser.add_argument("query", nargs="+", help="Search query")
     parser.add_argument(
-        "--engine", "-e", default="general", choices=SEARXNG_CATEGORIES, help=cat_help
+        "--category",
+        "-c",
+        default="general",
+        help=f'{cat_help} (use comma to combine, e.g. -c "general,news")',
     )
     parser.add_argument(
         "--max-results", "-n", type=int, default=10, help="Maximum results to return"
@@ -142,7 +144,7 @@ async def main():
     query = " ".join(args.query)
     results = await search(
         query=query,
-        engine=args.engine,
+        categories=args.category,
         max_results=args.max_results,
         language=args.language,
         safesearch=args.safesearch,

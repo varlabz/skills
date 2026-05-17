@@ -22,6 +22,8 @@ Run the [search script](./scripts/search.py) with your query:
 ./scripts/search.py "<query>"
 ```
 
+> **Categories** can be combined with a comma: `--category "general,news"`
+
 ### General web search
 ```bash
 ./scripts/search.py "Python asyncio best practices"
@@ -29,24 +31,29 @@ Run the [search script](./scripts/search.py) with your query:
 
 ### News search with time filter
 ```bash
-./scripts/search.py "AI announcements" --engine news --time-range week
+./scripts/search.py "AI announcements" --category news --time-range week
 ```
 
 ### Technical / IT search
 ```bash
-./scripts/search.py "Docker multi-stage build" --engine it --max-results 15
+./scripts/search.py "Docker multi-stage build" --category "general,it" --max-results 15
 ```
 
 ### Science or academic topics
 ```bash
-./scripts/search.py "transformer architecture attention mechanism" --engine science
+./scripts/search.py "transformer architecture attention mechanism" --category "science"
+```
+
+### Video search
+```bash
+./scripts/search.py "transformer architecture attention mechanism" --category "general,videos"
 ```
 
 ## Options
 
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
-| `--engine` | `-e` | `general` | Category: `general`, `news`, `images`, `videos`, `it`, `science`, `files`, `social media`, `music`, `map` |
+| `--category` | `-c` | `general` | Category (comma-separated for multiple): `general`, `news`, `images`, `videos`, `it`, `science`, `files`, `social media`, `music`, `map` |
 | `--max-results` | `-n` | `10` | Number of results to return |
 | `--time-range` | `-t` | — | Filter by `day`, `week`, `month`, or `year` |
 | `--language` | `-l` | `en-US` | Language code (e.g. `zh-CN`, `fr-FR`) |
