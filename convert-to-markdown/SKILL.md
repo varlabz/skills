@@ -1,7 +1,7 @@
 ---
 name: convert-to-markdown
-description: "Convert files and web content to Markdown. Supports YouTube video transcripts (via URL or video ID) and conversion of MHTML files and web pages into Markdown for easier reading and processing."
-tags: [youtube, transcript, mhtml, html, markdown, web]
+description: "Convert content of files and URLs into Markdown. Supports YouTube video transcripts (via URL or video ID). Convert MHTML files into Markdown."
+tags: [URLs, youtube, transcript, mhtml, html, markdown, web]
 ---
 
 # Convert Files and URLs to Markdown
@@ -60,7 +60,7 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 ./scripts/mhtml-to-md.py https://example.com/page.mhtml
 ```
 
-## HTML / Web Page to Markdown
+## URL, HTML to Markdown
 
 Convert any web page URL into Markdown via a Crawl4AI server.
 
