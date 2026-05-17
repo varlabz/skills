@@ -1,4 +1,4 @@
-#!/usr/bin/env -S uvx python
+#!/usr/bin/env -S uvx --with httpx python
 """Search a local SearXNG instance and output results."""
 
 import argparse
