@@ -16,37 +16,37 @@ allowed-tools: shell
 
 ## Procedure
 
-Run the [search script](./scripts/search.py) with your query:
+Run the [search script](./scripts/search.sh) with your query:
 
 ```bash
-./scripts/search.py "<query>"
+./scripts/search.sh "<query>"
 ```
 
 > **Categories** can be combined with a comma: `--category "general,news"`
 
 ### General web search
 ```bash
-./scripts/search.py "Python asyncio best practices"
+./scripts/search.sh "Python asyncio best practices"
 ```
 
 ### News search with time filter
 ```bash
-./scripts/search.py "AI announcements" --category news --time-range week
+./scripts/search.sh "AI announcements" --category news --time-range week
 ```
 
 ### Technical / IT search
 ```bash
-./scripts/search.py "Docker multi-stage build" --category "general,it" --max-results 15
+./scripts/search.sh "Docker multi-stage build" --category "general,it" --max-results 15
 ```
 
 ### Science or academic topics
 ```bash
-./scripts/search.py "transformer architecture attention mechanism" --category "science"
+./scripts/search.sh "transformer architecture attention mechanism" --category "science"
 ```
 
 ### Video search
 ```bash
-./scripts/search.py "transformer architecture attention mechanism" --category "general,videos"
+./scripts/search.sh "transformer architecture attention mechanism" --category "general,videos"
 ```
 
 ## Options

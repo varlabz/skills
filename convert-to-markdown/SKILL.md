@@ -15,7 +15,7 @@ These scripts use [`uvx`](https://docs.astral.sh/uv/) to run their dependencies 
 Extract captions/subtitles from YouTube videos.
 
 ```bash
-./scripts/youtube-transcript.py <youtube_video_id_or_url>
+./scripts/youtube-transcript.sh <youtube_video_id_or_url>
 ```
 
 **Options:**
@@ -30,16 +30,16 @@ Extract captions/subtitles from YouTube videos.
 
 ```bash
 # Basic transcript (auto-detected language)
-./scripts/youtube-transcript.py dQw4w9WgXcQ
+./scripts/youtube-transcript.sh dQw4w9WgXcQ
 
 # Transcript with metadata
-./scripts/youtube-transcript.py --info https://www.youtube.com/watch?v=dQw4w9WgXcQ
+./scripts/youtube-transcript.sh --info https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 # German subtitles
-./scripts/youtube-transcript.py --lang de dQw4w9WgXcQ
+./scripts/youtube-transcript.sh --lang de dQw4w9WgXcQ
 
 # Raw VTT output
-./scripts/youtube-transcript.py --raw dQw4w9WgXcQ
+./scripts/youtube-transcript.sh --raw dQw4w9WgXcQ
 ```
 
 ## MHTML to Markdown
@@ -47,17 +47,17 @@ Extract captions/subtitles from YouTube videos.
 Convert an MHTML file (local path) or a remote URL serving MHTML content into Markdown.
 
 ```bash
-./scripts/mhtml-to-md.py <path_or_url>
+./scripts/mhtml-to-md.sh <path_or_url>
 ```
 
 ### Examples
 
 ```bash
 # Local MHTML file
-./scripts/mhtml-to-md.py ./page.mhtml
+./scripts/mhtml-to-md.sh ./page.mhtml
 
 # Remote MHTML URL
-./scripts/mhtml-to-md.py https://example.com/page.mhtml
+./scripts/mhtml-to-md.sh https://example.com/page.mhtml
 ```
 
 ## URL, HTML to Markdown
@@ -65,7 +65,7 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 Convert any web page URL into Markdown via a Crawl4AI server.
 
 ```bash
-./scripts/html-to-md.py <url>
+./scripts/html-to-md.sh <url>
 ```
 
 **Options:**
@@ -79,11 +79,11 @@ Convert any web page URL into Markdown via a Crawl4AI server.
 
 ```bash
 # Print markdown to stdout
-./scripts/html-to-md.py https://example.com
+./scripts/html-to-md.sh https://example.com
 
 # Save to a file
-./scripts/html-to-md.py https://example.com -o example.md
+./scripts/html-to-md.sh https://example.com -o example.md
 
 # Use a custom server
-./scripts/html-to-md.py https://python.org -s http://crawl4ai.lan:11235
+./scripts/html-to-md.sh https://python.org -s http://crawl4ai.lan:11235
 ```
