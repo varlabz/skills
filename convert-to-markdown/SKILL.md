@@ -1,14 +1,17 @@
 ---
 name: convert-to-markdown
-description: "Convert content of files and URLs into Markdown. Supports YouTube video transcripts (via URL or video ID). Convert MHTML files into Markdown."
-tags: [URLs, youtube, transcript, mhtml, html, markdown, web]
+description: "Convert files and URLs into Markdown. Supports PDF, Word (DOCX), PowerPoint (PPTX), Excel (XLSX/XLS), images (EXIF+OCR), audio (EXIF+transcription), EPUB, CSV, JSON, XML, ZIP, MHTML, YouTube transcripts, and HTML web pages. Use when the user needs to extract text content from documents for LLM consumption or further analysis."
+compatibility: Requires uv (uvx).
+metadata:
+  tools: "uv (uvx)"
+  formats: "PDF, DOCX, PPTX, XLSX, XLS, images, audio, EPUB, CSV, JSON, XML, ZIP, MHTML, YouTube, HTML"
 ---
 
 # Convert Files and URLs to Markdown
 
-## Prerequisites
+All scripts use [`uvx`](https://docs.astral.sh/uv/) to run dependencies on the fly — no permanent installation needed.
 
-These scripts use [`uvx`](https://docs.astral.sh/uv/) to run their dependencies on the fly — no permanent installation needed.
+---
 
 ## YouTube Transcript
 
@@ -42,6 +45,8 @@ Extract captions/subtitles from YouTube videos.
 ./scripts/youtube-transcript --raw dQw4w9WgXcQ
 ```
 
+---
+
 ## MHTML to Markdown
 
 Convert an MHTML file (local path) or a remote URL serving MHTML content into Markdown.
@@ -60,7 +65,9 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 ./scripts/mhtml-to-md https://example.com/page.mhtml
 ```
 
-## URL, HTML to Markdown
+---
+
+## URL / HTML to Markdown
 
 Convert any web page URL into Markdown via a Crawl4AI server.
 
@@ -87,3 +94,76 @@ Convert any web page URL into Markdown via a Crawl4AI server.
 # Use a custom server
 ./scripts/html-to-md https://python.org -s http://crawl4ai.lan:11235
 ```
+
+---
+
+## General File Conversion (via `uvx markitdown`)
+
+Convert any supported file to Markdown using [MarkItDown](https://github.com/microsoft/markitdown). The `markitdown` CLI is available directly via `uvx` — no scripts needed.
+
+```bash
+uvx markitdown <path>
+```
+
+**Supported formats:**
+
+| Format | File extensions | Notes |
+|--------|----------------|-------|
+| PDF | `.pdf` | Extracts text, headings, tables |
+| Word | `.docx` | Full document structure |
+| PowerPoint | `.pptx` | Slides, text, tables, notes |
+| Excel | `.xlsx`, `.xls` | Sheets as tables |
+| Images | `.jpg`, `.png`, `.gif`, `.webp`, `.bmp`, `.tiff` | EXIF metadata + OCR text |
+| Audio | `.mp3`, `.wav`, `.m4a`, `.flac` | EXIF metadata + speech transcription |
+| EPUB | `.epub` | eBook content |
+| CSV | `.csv` | Table-formatted data |
+| JSON | `.json` | Structured content |
+| XML | `.xml` | Structured content |
+| ZIP | `.zip` | Iterates over and converts contents |
+| HTML | `.html`, `.htm` | Web page source |
+| Text | `.txt`, `.md`, `.log` | Plain text passthrough |
+
+**Options:**
+
+| Flag | Description |
+|------|-------------|
+| `-o`, `--output <file>` | Write markdown to a file instead of stdout |
+
+### Examples
+
+```bash
+# Convert a PDF
+uvx markitdown report.pdf
+
+# Convert a PowerPoint presentation and save to file
+uvx markitdown slides.pptx -o slides.md
+
+# Convert an Excel spreadsheet
+uvx markitdown data.xlsx
+
+# Convert an image (extracts EXIF metadata and OCR text)
+uvx markitdown photo.jpg
+
+# Convert an EPUB ebook
+uvx markitdown book.epub
+
+# Convert a CSV file
+uvx markitdown data.csv
+
+# Convert a ZIP archive (recursively converts contents)
+uvx markitdown archive.zip
+```
+
+---
+
+## Tips & Edge Cases
+
+| Scenario | Recommendation |
+|----------|---------------|
+| **Scanned PDFs** (images-only) | Built-in extraction may yield no text. Try OCR via the image path instead, or use a cloud service. |
+| **Password-protected files** | Remove password protection before converting — MarkItDown does not support decryption. |
+| **Very large ZIP archives** | MarkItDown iterates all entries. For large archives, consider extracting specific files first. |
+| **Audio transcription quality** | Depends on the audio clarity and the underlying speech-to-text engine. Clear speech with minimal background noise works best. |
+| **Excel with many sheets** | All sheets are included as separate tables in the output. |
+| **YouTube age-restricted videos** | yt-dlp may fail with age-restricted content. No workaround is provided. |
+| **Crawl4AI not running** | `html-to-md` will fail with a connection error. Start the server first or use `uvx markitdown` on a saved `.html` file instead. |
