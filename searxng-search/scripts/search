@@ -113,10 +113,17 @@ async def main():
         help=f'{cat_help} (use comma to combine, e.g. -c "general,news")',
     )
     parser.add_argument(
-        "--max-results", "-n", type=int, default=10, help="Maximum results to return"
+        "--max-results",
+        "-m",
+        type=int,
+        default=10,
+        help="Maximum results to return",
     )
     parser.add_argument(
-        "--language", "-l", default="en-US", help="Language code (e.g. en-US, zh-CN)"
+        "--language",
+        "-l",
+        default="en-US",
+        help="Language code (e.g. en-US, zh-CN)",
     )
     parser.add_argument(
         "--safesearch",
@@ -134,7 +141,11 @@ async def main():
         help="Filter by time range",
     )
     parser.add_argument(
-        "--format", "-f", default="json", choices=["text", "json"], help="Output format"
+        "--format",
+        "-f",
+        default="json",
+        choices=["text", "json"],
+        help="Output format",
     )
     parser.add_argument(
         "--server",

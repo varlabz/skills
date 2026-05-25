@@ -54,7 +54,7 @@ Run the [search script](./scripts/search) with your query:
 | Flag | Short | Default | Description |
 |------|-------|---------|-------------|
 | `--category` | `-c` | `general` | Category (comma-separated for multiple): `general`, `news`, `images`, `videos`, `it`, `science`, `files`, `social media`, `music`, `map` |
-| `--max-results` | `-n` | `10` | Number of results to return |
+| `--max-results` | `-m` | `10` | Number of results to return |
 | `--time-range` | `-t` | — | Filter by `day`, `week`, `month`, or `year` |
 | `--language` | `-l` | `en-US` | Language code (e.g. `zh-CN`, `fr-FR`) |
 | `--format` | `-f` | `json` | Output format: `json` or `text` |
