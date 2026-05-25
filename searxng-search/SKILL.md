@@ -58,7 +58,8 @@ Run the [search script](./scripts/search) with your query:
 | `--time-range` | `-t` | — | Filter by `day`, `week`, `month`, or `year` |
 | `--language` | `-l` | `en-US` | Language code (e.g. `zh-CN`, `fr-FR`) |
 | `--format` | `-f` | `json` | Output format: `json` or `text` |
-| `--url` | — | `$SEARXNG_URL` | Override the SearXNG instance URL |
+| `--server` | `-s` | `$SEARXNG_URL` | Override the SearXNG instance URL |
+| `--safesearch` | `-S` | `0` | Safe search level: `0` (off), `1` (moderate), `2` (strict) |
 
 ## Configuration
 

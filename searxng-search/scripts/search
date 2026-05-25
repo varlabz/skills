@@ -120,7 +120,7 @@ async def main():
     )
     parser.add_argument(
         "--safesearch",
-        "-s",
+        "-S",
         type=int,
         default=0,
         choices=[0, 1, 2],
@@ -137,7 +137,10 @@ async def main():
         "--format", "-f", default="json", choices=["text", "json"], help="Output format"
     )
     parser.add_argument(
-        "--url", default=None, help="SearXNG instance URL (overrides SEARXNG_URL env)"
+        "--server",
+        "-s",
+        default=None,
+        help="SearXNG instance URL (overrides SEARXNG_URL env)",
     )
     args = parser.parse_args()
 
@@ -149,7 +152,7 @@ async def main():
         language=args.language,
         safesearch=args.safesearch,
         time_range=args.time_range,
-        base_url=args.url,
+        base_url=args.server,
     )
 
     if args.format == "json":
