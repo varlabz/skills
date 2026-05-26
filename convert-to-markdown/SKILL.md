@@ -33,7 +33,7 @@ Extract captions/subtitles from YouTube videos.
 
 ```bash
 # Basic transcript (auto-detected language)
-./scripts/youtube-transcript dQw4w9WgXcQ
+./scripts/youtube-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ
 
 # Transcript with metadata
 ./scripts/youtube-transcript --info https://www.youtube.com/watch?v=dQw4w9WgXcQ
@@ -67,9 +67,9 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 
 ---
 
-## URL / HTML to Markdown
+## URL to Markdown
 
-Convert any web page URL into Markdown via a Crawl4AI server.
+Convert any web page URL into Markdown.
 
 ```bash
 ./scripts/html-to-md <url>
