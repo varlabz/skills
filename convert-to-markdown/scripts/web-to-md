@@ -1,35 +1,44 @@
-#!/usr/bin/env -S uvx --with httpx python
+#!/usr/bin/env -S uvx --with httpx --with markitdown python
 """Fetch a web page and convert it to Markdown."""
 
 import argparse
 import asyncio
 import os
 import sys
+from io import BytesIO
 from pathlib import Path
 
 import httpx
+import markitdown
 
 BASE = "http://localhost:11235"
 
 
-def bail(msg):
-    print(msg, file=sys.stderr)
-    sys.exit(1)
-
-
-async def fetch(url, server):
+async def fetch_page(url, server):
+    """Fetch raw HTML from the Crawl4AI server /html endpoint."""
     async with httpx.AsyncClient(base_url=server, timeout=120.0) as c:
         r = await c.get("/health", timeout=10.0)
         r.raise_for_status()
-        r = await c.post(
-            "/md", json={"url": url, "f": "fit", "q": None, "c": "0"}, timeout=120.0
-        )
+        r = await c.post("/html", json={"url": url}, timeout=120.0)
         r.raise_for_status()
         d = r.json()
-        md = d.get("markdown", "")
-        if not md and d.get("error"):
-            bail(f"Server error: {d['error']}")
-        return md
+        if not d.get("success"):
+            raise RuntimeError(f"Server error: {d.get('detail', d)}")
+        return d.get("html", "")
+
+
+def html_to_markdown(raw_html):
+    """Convert raw HTML to Markdown using markitdown."""
+    mi = markitdown.MarkItDown()
+    result = mi.convert_stream(BytesIO(raw_html.encode()))
+    return str(result.text_content) if result else ""
+
+
+async def fetch(url, server):
+    raw_html = await fetch_page(url, server)
+    if not raw_html:
+        raise RuntimeError("No HTML content returned from server.")
+    return html_to_markdown(raw_html)
 
 
 def main():
@@ -49,15 +58,15 @@ def main():
         metavar="FILE",
         help="Write markdown to FILE instead of stdout",
     )
-    a = p.parse_args()
-    md = asyncio.run(fetch(a.url, a.server))
+    args = p.parse_args()
+    md = asyncio.run(fetch(args.url, args.server))
     if not md:
-        bail("No markdown content returned for the given URL.")
-    if a.output:
-        Path(a.output).write_text(md, encoding="utf-8")
-        print(f"Markdown saved to {a.output}", file=sys.stderr)
+        raise RuntimeError("No markdown content returned for the given URL.")
+    if args.output:
+        Path(args.output).write_text(md, encoding="utf-8")
+        print(f"Markdown saved to {args.output}", file=sys.stderr)
     else:
-        print(md, end="")
+        print(md)
 
 
 if __name__ == "__main__":

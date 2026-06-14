@@ -1,9 +1,8 @@
 ---
 name: convert-to-markdown
-description: "Read files and URLs. Supports PDF, Word (DOCX), PowerPoint (PPTX), Excel (XLSX/XLS), images (EXIF+OCR), audio (EXIF+transcription), EPUB, CSV, JSON, XML, ZIP, MHTML, YouTube transcripts, and HTML web pages. Use when the user needs to extract text content from documents for LLM consumption or further analysis."
+description: "Read/fetch URL or a file. Supports wide range of formats. Use when the user needs to extract text content from documents."
 compatibility: Requires uv (uvx).
 metadata:
-  info: read web pages
   tools: "uv (uvx)"
   formats: "PDF, DOCX, PPTX, XLSX, XLS, images, audio, EPUB, CSV, JSON, XML, ZIP, MHTML, YouTube, HTML"
 ---
