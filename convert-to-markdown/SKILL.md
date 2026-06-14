@@ -67,7 +67,7 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 
 ---
 
-## Web to Markdown
+## Web page to Markdown
 
 Convert any web page URL into Markdown.
 
