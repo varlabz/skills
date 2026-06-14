@@ -3,6 +3,7 @@ name: convert-to-markdown
 description: "Read files and URLs. Supports PDF, Word (DOCX), PowerPoint (PPTX), Excel (XLSX/XLS), images (EXIF+OCR), audio (EXIF+transcription), EPUB, CSV, JSON, XML, ZIP, MHTML, YouTube transcripts, and HTML web pages. Use when the user needs to extract text content from documents for LLM consumption or further analysis."
 compatibility: Requires uv (uvx).
 metadata:
+  info: read web pages
   tools: "uv (uvx)"
   formats: "PDF, DOCX, PPTX, XLSX, XLS, images, audio, EPUB, CSV, JSON, XML, ZIP, MHTML, YouTube, HTML"
 ---
@@ -67,12 +68,12 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 
 ---
 
-## URL to Markdown
+## Web to Markdown
 
 Convert any web page URL into Markdown.
 
 ```bash
-./scripts/html-to-md <url>
+./scripts/web-to-md <url>
 ```
 
 **Options:**
@@ -86,13 +87,13 @@ Convert any web page URL into Markdown.
 
 ```bash
 # Print markdown to stdout
-./scripts/html-to-md https://example.com
+./scripts/web-to-md https://example.com
 
 # Save to a file
-./scripts/html-to-md https://example.com -o example.md
+./scripts/web-to-md https://example.com -o example.md
 
 # Use a custom server
-./scripts/html-to-md https://python.org -s http://crawl4ai.lan:11235
+./scripts/web-to-md https://python.org -s http://crawl4ai.lan:11235
 ```
 
 ---
@@ -166,4 +167,4 @@ uvx markitdown archive.zip
 | **Audio transcription quality** | Depends on the audio clarity and the underlying speech-to-text engine. Clear speech with minimal background noise works best. |
 | **Excel with many sheets** | All sheets are included as separate tables in the output. |
 | **YouTube age-restricted videos** | yt-dlp may fail with age-restricted content. No workaround is provided. |
-| **Crawl4AI not running** | `html-to-md` will fail with a connection error. Start the server first or use `uvx markitdown` on a saved `.html` file instead. |
+| **Crawl4AI not running** | `web-to-md` will fail with a connection error. Start the server first or use `uvx markitdown` on a saved `.html` file instead. |
