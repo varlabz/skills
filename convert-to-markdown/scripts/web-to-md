@@ -1,5 +1,9 @@
 #!/usr/bin/env -S uvx --with httpx --with markitdown python
-"""Fetch a web page and convert it to Markdown."""
+"""Fetch a web page and convert it to Markdown via a Crawl4AI server.
+
+Uses the /crawl endpoint to get the full, untruncated raw
+HTML, then converts it to Markdown using markitdown.
+"""
 
 import argparse
 import asyncio
@@ -14,17 +18,39 @@ import markitdown
 BASE = "http://localhost:11235"
 
 
-async def fetch_page(url, server):
-    """Fetch raw HTML from the Crawl4AI server /html endpoint."""
+async def fetch_raw_html(url, server):
+    """Crawl a URL via /crawl and return the full raw HTML."""
     async with httpx.AsyncClient(base_url=server, timeout=120.0) as c:
         r = await c.get("/health", timeout=10.0)
         r.raise_for_status()
-        r = await c.post("/html", json={"url": url}, timeout=120.0)
+        r = await c.post(
+            "/crawl",
+            json={
+                "urls": [url],
+                "crawler_config": {
+                    "word_count_threshold": 1,  # don't truncate
+                    "only_text": False,  # keep links/images
+                    "remove_overlay_elements": False,
+                },
+            },
+            timeout=120.0,
+        )
         r.raise_for_status()
         d = r.json()
         if not d.get("success"):
             raise RuntimeError(f"Server error: {d.get('detail', d)}")
-        return d.get("html", "")
+        results = d.get("results", [])
+        if not results:
+            raise RuntimeError(f"No results returned for URL: {url}")
+        item = results[0]
+        if not item.get("success"):
+            raise RuntimeError(
+                f"Crawl failed for {url}: {item.get('error_message', 'unknown error')}"
+            )
+        html = item.get("html", "")
+        if not html:
+            raise RuntimeError(f"No HTML content returned for URL: {url}")
+        return html
 
 
 def html_to_markdown(raw_html):
@@ -35,9 +61,7 @@ def html_to_markdown(raw_html):
 
 
 async def fetch(url, server):
-    raw_html = await fetch_page(url, server)
-    if not raw_html:
-        raise RuntimeError("No HTML content returned from server.")
+    raw_html = await fetch_raw_html(url, server)
     return html_to_markdown(raw_html)
 
 
@@ -60,8 +84,6 @@ def main():
     )
     args = p.parse_args()
     md = asyncio.run(fetch(args.url, args.server))
-    if not md:
-        raise RuntimeError("No markdown content returned for the given URL.")
     if args.output:
         Path(args.output).write_text(md, encoding="utf-8")
         print(f"Markdown saved to {args.output}", file=sys.stderr)
@@ -70,4 +92,4 @@ def main():
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    main()
