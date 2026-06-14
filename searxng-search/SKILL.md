@@ -58,12 +58,6 @@ Run the [search script](./scripts/search) with your query:
 | `--time-range` | `-t` | — | Filter by `day`, `week`, `month`, or `year` |
 | `--language` | `-l` | `en-US` | Language code (e.g. `zh-CN`, `fr-FR`) |
 | `--format` | `-f` | `json` | Output format: `json` or `text` |
-| `--server` | `-s` | `$SEARXNG_URL` | Override the SearXNG instance URL |
+| `--server` | `-s` | `http://localhost:8080` | Override the SearXNG instance URL |
 | `--safesearch` | `-S` | `0` | Safe search level: `0` (off), `1` (moderate), `2` (strict) |
 
-## Configuration
-
-Set `SEARXNG_URL` to point at your instance (defaults to `http://localhost:8080`):
-```bash
-export SEARXNG_URL="http://localhost:8080"
-```
