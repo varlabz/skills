@@ -15,16 +15,18 @@ from pathlib import Path
 import httpx
 import markitdown
 
-BASE = "http://localhost:11235"
+BASE: str = "http://localhost:11235"
+TOKEN: str = os.environ.get("CRAWL4AI_TOKEN", "crawl4ai")
 
 
-async def fetch_raw_html(url, server):
+async def fetch_raw_html(url: str, server: str) -> str:
     """Crawl a URL via /crawl and return the full raw HTML."""
     async with httpx.AsyncClient(base_url=server, timeout=120.0) as c:
         r = await c.get("/health", timeout=10.0)
         r.raise_for_status()
         r = await c.post(
             "/crawl",
+            headers={"Authorization": f"Bearer {TOKEN}"},
             json={
                 "urls": [url],
                 "crawler_config": {
@@ -53,38 +55,48 @@ async def fetch_raw_html(url, server):
         return html
 
 
-def html_to_markdown(raw_html):
+def html_to_markdown(raw_html: str) -> str:
     """Convert raw HTML to Markdown using markitdown."""
     mi = markitdown.MarkItDown()
     result = mi.convert_stream(BytesIO(raw_html.encode()))
     return str(result.text_content) if result else ""
 
 
-async def fetch(url, server):
-    raw_html = await fetch_raw_html(url, server)
+async def fetch(url: str, server: str) -> str:
+    """Fetch a URL via Crawl4AI and convert it to Markdown."""
+    raw_html: str = await fetch_raw_html(url, server)
     return html_to_markdown(raw_html)
 
 
-def main():
-    p = argparse.ArgumentParser(
+def main() -> None:
+    """Parse CLI arguments, fetch a URL, and output Markdown."""
+    parser: argparse.ArgumentParser = argparse.ArgumentParser(
         description="Fetch a web page and convert it to Markdown."
     )
-    p.add_argument("url")
-    p.add_argument(
+    parser.add_argument(
+        "url",
+        type=str,
+        help="URL of the web page to convert",
+    )
+    parser.add_argument(
         "-s",
         "--server",
+        type=str,
         default=os.getenv("CRAWL4AI_URL", BASE),
-        help=f"Server URL (default: {BASE}, or $CRAWL4AI_URL)",
+        help=f"Crawl4AI server URL (default: {BASE}, or $CRAWL4AI_URL)",
     )
-    p.add_argument(
+    parser.add_argument(
         "-o",
         "--output",
+        type=str,
+        default=None,
         metavar="FILE",
         help="Write markdown to FILE instead of stdout",
     )
-    args = p.parse_args()
-    md = asyncio.run(fetch(args.url, args.server))
-    if args.output:
+    args: argparse.Namespace = parser.parse_args()
+    md: str = asyncio.run(fetch(args.url, args.server))
+
+    if args.output is not None:
         Path(args.output).write_text(md, encoding="utf-8")
         print(f"Markdown saved to {args.output}", file=sys.stderr)
     else:
