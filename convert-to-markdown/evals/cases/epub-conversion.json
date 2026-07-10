@@ -1,0 +1,19 @@
+{
+  "id": "epub-conversion",
+  "name": "EPUB ebook to Markdown conversion",
+  "prompt": "Convert this EPUB ebook at ./books/novel.epub to markdown.",
+  "expected_behavior": [
+    "Use 'uvx markitdown' for EPUB files",
+    "Output book content with chapter structure preserved"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown'",
+    "Preserves chapter headings and structure",
+    "Handles embedded images reasonably well"
+  ],
+  "edge_cases": [
+    "EPUB with complex formatting (footnotes, endnotes) → may not convert perfectly",
+    "DRM-protected EPUB → cannot be converted without removing DRM first",
+    "EPUB with embedded fonts → font information lost in markdown output"
+  ]
+}

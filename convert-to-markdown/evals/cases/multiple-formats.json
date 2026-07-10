@@ -1,0 +1,20 @@
+{
+  "id": "multiple-formats",
+  "name": "Batch conversion of multiple file types",
+  "prompt": "I have a folder ./documents with PDF, DOCX, and XLSX files. Convert all of them to markdown.",
+  "expected_behavior": [
+    "Iterate over all supported files in the directory",
+    "Use 'uvx markitdown' for each file type",
+    "Save outputs with appropriate .md filenames"
+  ],
+  "success_criteria": [
+    "Processes multiple files correctly",
+    "Handles mixed success/failure per file gracefully",
+    "Provides summary of what was converted and any errors"
+  ],
+  "edge_cases": [
+    "Some files unsupported → skip with warning, continue processing others",
+    "Very large directory (>100 files) → may take time, suggest processing specific files",
+    "Files with spaces in names → handle quoting correctly"
+  ]
+}

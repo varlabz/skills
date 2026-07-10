@@ -1,0 +1,28 @@
+{
+  "skill_name": "convert-to-markdown",
+  "eval_set": "convert-to-markdown-eval",
+  "created_at": "2026-07-10T20:55:00Z",
+  "model": "current",
+  "thinking_level": "high",
+  "tool_profile": "normal",
+  "concurrency": 4,
+  "total_cases": 18,
+  "categories_covered": [
+    "core_formats (PDF, DOCX, PPTX, XLSX, EPUB)",
+    "web_and_media (YouTube, web pages, MHTML)",
+    "structured_data (CSV, JSON, XML)",
+    "media_processing (images with OCR, audio transcription)",
+    "archive_and_special (ZIP, HTML)",
+    "edge_cases_and_errors (scanned PDFs, missing deps, unsupported formats)",
+    "workflow_variants (file output, metadata flags)"
+  ],
+  "grading_weights": {
+    "tool_selection": 3,
+    "command_syntax": 2,
+    "error_handling": 3,
+    "output_quality": 2,
+    "edge_case_awareness": 2
+  },
+  "max_score_per_case": 12,
+  "notes": "Evals designed to test both tool correctness and graceful degradation. Skills should guide agents to use the right command for each format type."
+}

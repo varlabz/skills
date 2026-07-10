@@ -1,0 +1,20 @@
+{
+  "id": "youtube-lang-flag",
+  "name": "YouTube transcript with specific language flag",
+  "prompt": "Extract the German transcript from this YouTube video: https://www.youtube.com/watch?v=dQw4w9WgXcQ — use --lang de",
+  "expected_behavior": [
+    "Run ./scripts/youtube-transcript with --lang de and the video URL/ID",
+    "Script should request German subtitles (or fall back to auto-generated if none exist)",
+    "Output transcript content in readable format"
+  ],
+  "success_criteria": [
+    "Correctly passes --lang de flag to youtube-transcript script",
+    "Handles case where German subtitles don't exist (fallback to auto-generated or error message)",
+    "Does not silently default back to English when German was explicitly requested"
+  ],
+  "edge_cases": [
+    "No German subtitles available → script should try auto-generated captions as fallback, then report clearly if nothing found",
+    "Video has no subtitles at all → clear error message suggesting manual transcription or alternative source",
+    "Language code typo (e.g., 'ger' instead of 'de') → yt-dlp may fail; suggest correct ISO 639-1 codes"
+  ]
+}

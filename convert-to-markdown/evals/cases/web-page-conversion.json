@@ -1,0 +1,21 @@
+{
+  "id": "web-page-conversion",
+  "name": "Web page to Markdown conversion",
+  "prompt": "Convert this web page to markdown: https://en.wikipedia.org/wiki/Markdown",
+  "expected_behavior": [
+    "Identify correct tool for web pages (web-to-md or markitdown)",
+    "Handle Crawl4AI server requirement if using web-to-md",
+    "Produce clean markdown output"
+  ],
+  "success_criteria": [
+    "Correctly selects tool based on available infrastructure (Crawl4AI running vs not)",
+    "Handles missing dependencies gracefully with clear guidance",
+    "Produces clean, readable markdown without excessive HTML artifacts"
+  ],
+  "edge_cases": [
+    "Crawl4AI server not running → web-to-md fails, suggest starting server or using markitdown on saved .html file",
+    "JavaScript-heavy pages (SPAs) → may need headless browser, Crawl4AI handles this but static HTML won't render JS",
+    "Pages requiring login/authentication → cannot access without credentials",
+    "Rate-limited sites → suggest saving page first with curl/wget"
+  ]
+}

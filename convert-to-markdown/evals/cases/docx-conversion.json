@@ -1,0 +1,19 @@
+{
+  "id": "docx-conversion",
+  "name": "Word document to Markdown conversion",
+  "prompt": "Convert this Word document at ./documents/proposal.docx to markdown.",
+  "expected_behavior": [
+    "Use 'uvx markitdown' for DOCX files",
+    "Handle potential issues with complex formatting"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown'",
+    "Preserves document structure (headings, lists, tables)",
+    "Handles embedded images if any"
+  ],
+  "edge_cases": [
+    "Complex formatting (text boxes, smart art) → may not convert perfectly",
+    "Track changes enabled → may include revision comments in output",
+    "Password-protected DOCX → markitdown doesn't support decryption"
+  ]
+}

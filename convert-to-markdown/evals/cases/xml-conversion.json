@@ -1,0 +1,19 @@
+{
+  "id": "xml-conversion",
+  "name": "XML to Markdown conversion",
+  "prompt": "Convert this XML file at ./data/catalog.xml to markdown.",
+  "expected_behavior": [
+    "Use 'uvx markitdown' for XML files",
+    "Output structured content in readable format"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown'",
+    "Produces human-readable output (not raw XML dump)",
+    "Handles nested elements reasonably well"
+  ],
+  "edge_cases": [
+    "Very large XML files → may produce unwieldy output",
+    "XML with CDATA sections → text content extracted but formatting lost",
+    "Malformed XML → markitdown may fail or produce partial output"
+  ]
+}

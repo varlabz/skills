@@ -1,0 +1,20 @@
+{
+  "id": "pdf-conversion",
+  "name": "PDF to Markdown conversion",
+  "prompt": "I have a PDF report at ./documents/report.pdf. Can you convert it to markdown?",
+  "expected_behavior": [
+    "Check if the file exists first (ls or stat)",
+    "Use 'uvx markitdown' command for PDF conversion",
+    "Output markdown to stdout or save to .md file with -o flag"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown' (not other tools like pandoc)",
+    "Handles missing file gracefully with clear error message",
+    "Produces readable markdown output with proper heading structure"
+  ],
+  "edge_cases": [
+    "File doesn't exist → clear error, suggest checking path",
+    "Password-protected PDF → markitdown doesn't support decryption, suggest removing password first",
+    "Very large PDF → may take time, should not timeout without progress indication"
+  ]
+}

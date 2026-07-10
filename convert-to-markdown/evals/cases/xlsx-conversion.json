@@ -1,0 +1,19 @@
+{
+  "id": "xlsx-conversion",
+  "name": "Excel spreadsheet to Markdown conversion",
+  "prompt": "Convert this Excel file at ./data/budget.xlsx to markdown.",
+  "expected_behavior": [
+    "Use 'uvx markitdown' for XLSX files",
+    "Output all sheets as separate tables with sheet names"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown'",
+    "Preserves multiple sheets as labeled sections",
+    "Handles basic formatting (bold headers, merged cells) reasonably well"
+  ],
+  "edge_cases": [
+    "Complex Excel with formulas → outputs computed values, not formula text",
+    "Embedded charts/images → may not extract chart data accurately",
+    "Very large spreadsheet (>10k rows) → may be slow or produce unwieldy output"
+  ]
+}

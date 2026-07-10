@@ -1,0 +1,21 @@
+{
+  "id": "youtube-transcript",
+  "name": "YouTube video transcript extraction",
+  "prompt": "Extract the transcript from this YouTube video: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "expected_behavior": [
+    "Run ./scripts/youtube-transcript with the video ID or URL",
+    "Handle potential errors (age-restricted, unavailable, network issues)",
+    "Output transcript content in readable format"
+  ],
+  "success_criteria": [
+    "Correctly invokes youtube-transcript script (not yt-dlp directly unless needed)",
+    "Handles common failure modes gracefully with helpful error messages",
+    "Extracts actual transcript content when available"
+  ],
+  "edge_cases": [
+    "Age-restricted video → yt-dlp fails, suggest alternative sources or manual transcription",
+    "Video unavailable in region → network error, suggest VPN or different source",
+    "No subtitles available → fallback to auto-generated captions if possible",
+    "Very long video (>3 hours) → may take significant time"
+  ]
+}

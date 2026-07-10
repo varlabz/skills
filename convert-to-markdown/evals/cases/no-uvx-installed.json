@@ -1,0 +1,20 @@
+{
+  "id": "no-uvx-installed",
+  "name": "Graceful handling when uvx is not installed",
+  "prompt": "I have a PDF at ./report.pdf. Convert it to markdown.",
+  "expected_behavior": [
+    "Detect that 'uvx' command is not available",
+    "Suggest installing uv via: curl -LsSf https://astral.sh/uv/install.sh | sh",
+    "Or suggest using pip/pipx as alternative: pip install markitdown"
+  ],
+  "success_criteria": [
+    "Clearly communicates that uvx is required",
+    "Provides installation instructions for uv (the package manager)",
+    "Does not silently fail or give cryptic error messages"
+  ],
+  "edge_cases": [
+    "uv installed but not in PATH → suggest adding to PATH or using full path",
+    "Network issues during uv install → suggest offline installation methods",
+    "Permission errors during install → suggest --user flag or virtual environment"
+  ]
+}

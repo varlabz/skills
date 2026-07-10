@@ -1,0 +1,20 @@
+{
+  "id": "image-ocr",
+  "name": "Image to text via OCR",
+  "prompt": "I need to extract text from this image at ./photos/screenshot.png into markdown format.",
+  "expected_behavior": [
+    "Use markitdown for image conversion (handles EXIF + OCR)",
+    "Understand that output includes metadata and extracted text"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown' for images",
+    "Acknowledges limitations (OCR quality depends on image clarity)",
+    "Produces reasonable markdown with EXIF metadata if available"
+  ],
+  "edge_cases": [
+    "Low-resolution image → OCR may produce poor results, suggest higher resolution source",
+    "Handwritten text → markitdown's OCR may not handle handwriting well",
+    "Image with complex layout (tables, columns) → may need manual cleanup of output",
+    "Non-English text → depends on OCR engine language support"
+  ]
+}

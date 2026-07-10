@@ -1,0 +1,19 @@
+{
+  "id": "youtube-with-info",
+  "name": "YouTube transcript with metadata",
+  "prompt": "Get the transcript from this YouTube video along with its metadata: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  "expected_behavior": [
+    "Run youtube-transcript script with --info flag to include metadata",
+    "Output includes title, channel, duration before transcript"
+  ],
+  "success_criteria": [
+    "Uses correct flags: --info for metadata inclusion",
+    "Outputs both metadata and transcript content",
+    "Handles potential failures gracefully"
+  ],
+  "edge_cases": [
+    "Video with no title/metadata available → output may be incomplete",
+    "Age-restricted video → yt-dlp fails, cannot get info or transcript",
+    "Private/removed video → handle error clearly"
+  ]
+}

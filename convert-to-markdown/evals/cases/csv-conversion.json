@@ -1,0 +1,19 @@
+{
+  "id": "csv-conversion",
+  "name": "CSV to Markdown table conversion",
+  "prompt": "Convert this CSV file at ./data/sales.csv to markdown.",
+  "expected_behavior": [
+    "Use 'uvx markitdown' for CSV files",
+    "Output as formatted markdown table"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown'",
+    "Produces properly aligned markdown table with headers",
+    "Handles special characters and quotes in data correctly"
+  ],
+  "edge_cases": [
+    "Very wide CSV (>50 columns) → may need horizontal scrolling or truncation",
+    "CSV with embedded commas in quoted fields → should be handled by parser",
+    "Non-UTF8 encoding → may produce garbled output, suggest specifying encoding"
+  ]
+}

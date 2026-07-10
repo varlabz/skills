@@ -1,0 +1,19 @@
+{
+  "id": "html-conversion",
+  "name": "HTML file to Markdown conversion",
+  "prompt": "Convert this HTML file at ./pages/about.html to markdown.",
+  "expected_behavior": [
+    "Use 'uvx markitdown' for HTML files (or web-to-md if URL)",
+    "Handle local .html file with markitdown directly"
+  ],
+  "success_criteria": [
+    "Uses correct tool: 'uvx markitdown' for local HTML",
+    "Produces clean markdown without excessive HTML artifacts",
+    "Handles embedded images by referencing them"
+  ],
+  "edge_cases": [
+    "HTML with heavy JavaScript → static conversion won't include JS-rendered content",
+    "HTML with CSS classes only (no semantic markup) → may lose formatting cues",
+    "Embedded fonts/icons → not preserved in markdown output"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "web-to-md-with-output",
+  "name": "Web page conversion with file output",
+  "prompt": "Convert this web page to markdown and save it: https://example.com/article -o ./saved/article.md",
+  "expected_behavior": [
+    "Use web-to-md or markitdown for the URL",
+    "Save output to specified file path using -o flag"
+  ],
+  "success_criteria": [
+    "Correctly passes --output/-o flag to save to file",
+    "Creates directory if it doesn't exist (or handles error)",
+    "Confirms successful write or reports failure clearly"
+  ],
+  "edge_cases": [
+    "Output directory doesn't exist → suggest creating it first with mkdir -p",
+    "Permission denied writing to path → suggest different location or permissions",
+    "File already exists → may overwrite without warning (document behavior)"
+  ]
+}
