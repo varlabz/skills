@@ -1,0 +1,47 @@
+{
+  "skill_name": "suno",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Write me a dark synthwave track about driving through a neon-lit city at night. Male vocals.",
+      "expected_output": "A complete Suno prompt with all 6 sections: specific style tags (dark synthwave, pulsating bass, etc.), song structure using Suno metatags ([Intro], [Verse], [Chorus], etc.), rhythmic lyrics with clear meter, vocal styling description in tags, a copy-pasteable final block, and production notes about extend usage.",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "I have this Suno prompt for an acoustic folk song but the vocals sound too robotic. Can you help me refine it? Here's what I have: Style: Folk, Acoustic Guitar, Male Vocals. Lyrics: [Verse 1] Walking down the road / The sun is going down / I got my guitar and my worn out shoes / And nowhere left to lose.",
+      "expected_output": "Refined version with much more specific style tags (e.g., 'Indie Folk', 'Acoustic Guitar Fingerpicking'), improved vocal descriptors (e.g., 'intimate folk tenor', 'breathy delivery'), expanded song structure with more sections, polished lyrics that maintain the original theme but with better meter/rhyme, and production notes on how to extend or regenerate.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "I want to make a trap soul banger for my podcast intro. Needs to be cool and moody, like The Weeknd meets Frank Ocean. About 2 minutes long.",
+      "expected_output": "Complete Suno prompt with specific style tags (Trap Soul, 808 Bass, Dark Synthwave elements), full song structure optimized for ~2 min length (~400-600 words of lyrics), moody/dark vocal styling descriptors, copy-pasteable final block, and production notes addressing the shorter duration constraint and how to use Suno's extend feature to hit the target length.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I need a cinematic orchestral instrumental piece for a movie trailer. Something epic with brass and strings building to a massive climax. No vocals needed.",
+      "expected_output": "Complete Suno prompt with cinematic/orchestral style tags (Cinematic Orchestral, Brass Section, Orchestral Strings), full structure using metatags like [Build-Up], [Drop], [Instrumental Break], lyrics section indicating instrumental sections clearly, and production notes focused on extend usage for building the climax and managing length.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Just give me style tags for a dreamy lo-fi study beat. I want to experiment with different combinations before committing to a full song.",
+      "expected_output": "A focused response providing multiple distinct style tag combinations (e.g., 'Lo-Fi Hip Hop, 85 BPM, Vintage Tape Saturation, Soft Piano Melody' vs 'Ambient Techno, 90 BPM, Sidechain Compression, Ethereal Pads') without full song structure or lyrics. Should demonstrate creative combination of mood, instrumentation, and production quality tags.",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "Write me the lyrics for an indie folk breakup song about leaving a small town. I'll add the music later. Make it acoustic guitar friendly with simple chord progressions in mind.",
+      "expected_output": "Lyrics-focused response with clear meter (8-12 syllables per line), rhyme scheme, and Suno metatags for structure ([Verse 1], [Chorus], etc.). Style tags should be minimal but present (Indie Folk, Acoustic Guitar Fingerpicking). Should mention chord progression suggestions in production notes.",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "I generated a 2-minute verse and chorus but I need to extend it with a bridge and final chorus. How should I structure the extension? The song is in minor key, dark synthwave.",
+      "expected_output": "Production notes focused on Suno's extend feature workflow: how to generate the initial 2:30 section first, then use Extend from the last section for bridge/final chorus. Should include structure tags for the extension ([Bridge], [Final Chorus]), tips for maintaining consistency in key/style across extensions, and warnings about potential style drift.",
+      "files": []
+    }
+  ]
+}
