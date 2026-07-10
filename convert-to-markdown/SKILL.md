@@ -11,6 +11,33 @@ metadata:
 
 All scripts use [`uvx`](https://docs.astral.sh/uv/) to run dependencies on the fly — no permanent installation needed.
 
+## Setup
+
+```bash
+cd <skill-directory>/scripts
+chmod +x youtube-transcript web-to-md mhtml-to-md
+```
+
+Scripts fetch their Python dependencies at runtime via `uvx --with`, so no prior setup is required. The only prerequisite is that **`uvx`** (from [uv](https://docs.astral.sh/uv/)) is installed on the system.
+
+## Quick Start
+
+```bash
+# Most common: convert a PDF to markdown
+uvx markitdown report.pdf
+
+# Extract YouTube transcript
+./scripts/youtube-transcript https://www.youtube.com/watch?v=dQw4w9WgXcQ
+
+# Convert a web page (requires Crawl4AI server — see below)
+./scripts/web-to-md https://example.com
+```
+
+## Prerequisites
+
+- **`uvx`** — required for all scripts and `markitdown`. Install from [astral.sh/uv](https://docs.astral.sh/uv/).
+- **Crawl4AI server** — required only by `web-to-md`. Start it before running, or use a custom URL via `-s` / `$CRAWL4AI_URL`. See the [web-to-md section](#web-page-to-markdown) below.
+
 ---
 
 ## YouTube Transcript
@@ -68,6 +95,10 @@ Convert an MHTML file (local path) or a remote URL serving MHTML content into Ma
 ---
 
 ## Web page to Markdown
+
+> **Prerequisite:** This script requires a [Crawl4AI](https://github.com/unclecode/crawl4ai) server running. Start it before using, or pass `--server` / set `$CRAWL4AI_URL` to point at an existing instance.
+>
+> If Crawl4AI is not available, use `uvx markitdown` on a saved `.html` file instead (see the [Tips](#tips--edge-cases) section).
 
 Convert any web page URL into Markdown.
 
@@ -166,4 +197,15 @@ uvx markitdown archive.zip
 | **Audio transcription quality** | Depends on the audio clarity and the underlying speech-to-text engine. Clear speech with minimal background noise works best. |
 | **Excel with many sheets** | All sheets are included as separate tables in the output. |
 | **YouTube age-restricted videos** | yt-dlp may fail with age-restricted content. No workaround is provided. |
-| **Crawl4AI not running** | `web-to-md` will fail with a connection error. Start the server first or use `uvx markitdown` on a saved `.html` file instead. |
+| **YouTube non-English transcripts** | Use `--lang <code>` (e.g., `--lang de`) to request a specific language subtitle. Defaults to auto-detected source language. |
+
+### Using web-to-md without Crawl4AI
+
+If you don't have or can't run the Crawl4AI server, convert saved HTML files instead:
+
+```bash
+# Save page first
+curl -o page.html https://example.com
+# Convert with markitdown (no server needed)
+uvx markitdown page.html
+```
