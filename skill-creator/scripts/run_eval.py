@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run trigger evaluation for a skill description.
 
-Tests whether a skill's description causes Claude to trigger (read the skill)
+Tests whether a skill's description triggers the pi agent (reads the skill)
 for a set of queries. Outputs results as JSON.
 """
 
@@ -20,14 +20,17 @@ from scripts.utils import parse_skill_md
 
 
 def find_project_root() -> Path:
-    """Find the project root by walking up from cwd looking for .claude/.
+    """Find the project root by walking up from cwd looking for .agents/skills/.
 
-    Mimics how Claude Code discovers its project root, so the command file
-    we create ends up where claude -p will look for it.
+    Mimics how pi discovers project-local skills, so the skill file
+    we create ends up where `pi -p` will discover it.
     """
     current = Path.cwd()
     for parent in [current, *current.parents]:
-        if (parent / ".claude").is_dir():
+        if (parent / ".agents" / "skills").is_dir():
+            return parent
+        # Fall back to git repo root as a reasonable project boundary
+        if (parent / ".git").exists():
             return parent
     return current
 
@@ -42,23 +45,24 @@ def run_single_query(
 ) -> bool:
     """Run a single query and return whether the skill was triggered.
 
-    Creates a command file in .claude/commands/ so it appears in Claude's
-    available_skills list, then runs `claude -p` with the raw query.
-    Uses --include-partial-messages to detect triggering early from
-    stream events (content_block_start) rather than waiting for the
-    full assistant message, which only arrives after tool execution.
+    Creates a SKILL.md in .agents/skills/<name>/ so pi discovers it as a
+    project-local skill, then runs `pi -p` with the raw query.
+    Uses stream event detection to identify triggering early from
+    content_block_start events (tool_use for 'Skill' or 'Read') rather than
+    waiting for the full assistant message.
     """
     unique_id = uuid.uuid4().hex[:8]
     clean_name = f"{skill_name}-skill-{unique_id}"
-    project_commands_dir = Path(project_root) / ".claude" / "commands"
-    command_file = project_commands_dir / f"{clean_name}.md"
+    skill_dir = Path(project_root) / ".agents" / "skills" / clean_name
+    command_file = skill_dir / "SKILL.md"
 
     try:
-        project_commands_dir.mkdir(parents=True, exist_ok=True)
-        # Use YAML block scalar to avoid breaking on quotes in description
+        skill_dir.mkdir(parents=True, exist_ok=True)
+        # Use YAML frontmatter + markdown body
         indented_desc = "\n  ".join(skill_description.split("\n"))
         command_content = (
             f"---\n"
+            f"name: {skill_name}\n"
             f"description: |\n"
             f"  {indented_desc}\n"
             f"---\n\n"
@@ -68,19 +72,18 @@ def run_single_query(
         command_file.write_text(command_content)
 
         cmd = [
-            "claude",
+            "pi",
             "-p", query,
-            "--output-format", "stream-json",
+            "--mode", "json",
             "--verbose",
-            "--include-partial-messages",
         ]
         if model:
             cmd.extend(["--model", model])
 
-        # Remove CLAUDECODE env var to allow nesting claude -p inside a
-        # Claude Code session. The guard is for interactive terminal conflicts;
+        # Remove PI_CODING_AGENT env var to allow nesting pi -p inside a
+        # pi agent session. The guard is for interactive terminal conflicts;
         # programmatic subprocess usage is safe.
-        env = {k: v for k, v in os.environ.items() if k != "CLAUDECODE"}
+        env = {k: v for k, v in os.environ.items() if k != "PI_CODING_AGENT"}
 
         process = subprocess.Popen(
             cmd,
@@ -134,7 +137,7 @@ def run_single_query(
                             cb = se.get("content_block", {})
                             if cb.get("type") == "tool_use":
                                 tool_name = cb.get("name", "")
-                                if tool_name in ("Skill", "Read"):
+                                if tool_name in ("skill", "read"):
                                     pending_tool_name = tool_name
                                     accumulated_json = ""
                                 else:
@@ -161,9 +164,9 @@ def run_single_query(
                                 continue
                             tool_name = content_item.get("name", "")
                             tool_input = content_item.get("input", {})
-                            if tool_name == "Skill" and clean_name in tool_input.get("skill", ""):
+                            if tool_name == "skill" and clean_name in tool_input.get("skill", ""):
                                 triggered = True
-                            elif tool_name == "Read" and clean_name in tool_input.get("file_path", ""):
+                            elif tool_name == "read" and clean_name in tool_input.get("file_path", ""):
                                 triggered = True
                             return triggered
 
@@ -265,7 +268,7 @@ def main():
     parser.add_argument("--timeout", type=int, default=30, help="Timeout per query in seconds")
     parser.add_argument("--runs-per-query", type=int, default=3, help="Number of runs per query")
     parser.add_argument("--trigger-threshold", type=float, default=0.5, help="Trigger rate threshold")
-    parser.add_argument("--model", default=None, help="Model to use for claude -p (default: user's configured model)")
+    parser.add_argument("--model", default=None, help="Model to use for pi -p (default: user's configured model)")
     parser.add_argument("--verbose", action="store_true", help="Print progress to stderr")
     args = parser.parse_args()
 
