@@ -2,3 +2,4 @@
 __pycache__/
 pi.dbox
 .pi/skill-creator/runs/
+*-workspace/
