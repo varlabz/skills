@@ -83,9 +83,9 @@ Use the term that matches your actual sonic intent.
 
 | Category | Tags |
 |----------|------|
-| **Structure** | `[Intro]`, `[Verse]`, `[Verse 1]`, `[Verse 2]`, `[Pre-Chorus]`, `[Chorus]`, `[Post-Chorus]`, `[Hook]`, `[Bridge]`, `[Interlude]`, `[Break]`, `[Instrumental Break]`, `[Final Chorus]`, `[Outro]` |
+| **Structure** | `[Intro]`, `[Verse]`, `[Verse 1]`, `[Verse 2]`, `[Pre-Chorus]`, `[Chorus]`, `[Post-Chorus]`, `[Hook]`, `[Bridge]`, `[Interlude]`, `[Break]`, `[Instrumental Break]`, `[Final Chorus]`, `[Outro]`, `[Refrain]`, `[Tag]`, `[Coda]` |
 | **Energy** | `[Build]`, `[Drop]`, `[Breakdown]`, `[Fade In]`, `[Fade Out]`, `[End]`, `[Silence]` |
-| **Instruments** | `[Solo]`, `[Guitar Solo]`, `[Instrumental]`, `[Refrain]`, `[Tag]`, `[Coda]` |
+| **Instruments** | `[Solo]`, `[Guitar Solo]`, `[Instrumental]` |
 
 Place each tag on its own line, directly before the section it controls.
 

@@ -1,5 +1,21 @@
 # Music Glossary for Suno
 
+## Table of Contents
+
+| Section | Topics |
+|---------|--------|
+| [Tempo & Rhythm](#tempo--rhythm) | Tempo, Adagio, Allegro, Andante, Presto, Rubato, Syncopation, Polyrhythm, Groove, Downbeat, Upbeat |
+| [Dynamics & Expression](#dynamics--expression) | Dynamics, Crescendo, Diminuendo, Forte, Piano, Fortissimo, Pianissimo, Accent, Staccato, Legato, Vibrato, Tremolo |
+| [Song Structure](#song-structure) | Verse, Chorus, Bridge, Pre-Chorus, Intro, Outro, Hook, Refrain, Break, Drop |
+| [Melody & Harmony](#melody--harmony) | Melody, Harmony, Chord, Chord Progression, Key, Major, Minor, Scale, Interval, Octave, Arpeggio, Counterpoint, Dissonance, Resolution |
+| [Genres & Styles](#genres--styles) | Blues, Jazz, Rock, Pop, Electronic/EDM, Hip-Hop, R&B, Country, Classical, Folk, Funk, Soul, Reggae, Metal, Ambient |
+| [Instrumentation & Texture](#instrumentation--texture) | Instrumentation, Arrangement, Texture, Monophonic, Homophonic, Polyphonic, Orchestration, Timbre, Layering, Sparse, Dense |
+| [Vocal Techniques](#vocal-techniques) | Falsetto, Belt, Melisma, Vocal Run, Harmonization, A Cappella, Call and Response, Scat, Crooning, Rapping |
+| [Production & Effects](#production--effects) | Reverb, Delay/Echo, Compression, Distortion, Filter, Modulation, Panning, EQ, Sampling, Loop, Fade In/Out |
+| [Advanced Concepts](#advanced-concepts) | Modulation, Time Signature, Cadence, Ostinato, Pedal Point, Augmentation, Diminution, Suspension, Anacrusis, Coda |
+
+---
+
 ## Tempo & Rhythm
 
 - **Tempo** - The speed of a piece of music, measured in beats per minute (BPM)
