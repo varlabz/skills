@@ -1,0 +1,39 @@
+{
+  "skill_name": "poetry",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Write me a poem about my dog. Here are some words I want included: bark, golden, loyalty, porch swing, twilight, chase, forever.",
+      "expected_output": "A free-verse or structured poem incorporating all the listed words naturally in the context of a dog",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "Write me a poem in the style of this ghazal:\n\n*The nightingale weeps at the rose's silence—*\n*each note a wound that time cannot close.*\n*If only the garden remembered my name,*\n*I'd bloom again where shadows grow.*\n\nMake it about autumn leaves.",
+      "expected_output": "A poem mimicking ghazal structure (couplets with refrain, thematic melancholy) about autumn",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write a villanelle in a dark, brooding tone about the ocean. Here's a word list to work in: abyss, foam, drowning, salt, moonless, hunger.",
+      "expected_output": "A proper villanelle (19 lines, two refrains, specific rhyme scheme) with dark tone and all words integrated",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "Write me a poem.",
+      "expected_output": "The model should ask the user what kind of poem they want (or suggest directions) rather than writing something generic",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "Here's a draft I wrote, can you polish it?\n\n*The old house stood at the end of the road,\nit's windows like empty eyes watching me pass.\nMy grandmother's garden grew wild and overgrown,\nbut she always said the weeds had their own kind of beauty.*",
+      "expected_output": "A polished version that preserves the author's voice and core imagery (old house, grandmother's garden) while improving rhythm and word choice — not a complete rewrite"
+    },
+    {
+      "id": 5,
+      "prompt": "Write me a poem in the style of these two poems:\n\n*Ode to Autumn (Romantic, flowing, reverent tone)*\n*The world is too much with us; late and soon, Getting and spending, we lay waste our powers;*\n\n*Punk Haiku (Irreverent, jagged, sarcastic tone)*\n*broken glass on the stage / they played three chords and called it art / still better than yours*,\n\nMake it about a rainy Tuesday.",
+      "expected_output": "The model should acknowledge the conflicting styles and either ask which to prioritize or thoughtfully blend them into something coherent"
+    }
+  ]
+}
