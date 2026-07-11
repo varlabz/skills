@@ -61,7 +61,7 @@ def find_runs(workspace: Path) -> list[dict]:
     """Recursively find directories that contain an outputs/ subdirectory."""
     runs: list[dict] = []
     _find_runs_recursive(workspace, workspace, runs)
-    runs.sort(key=lambda r: (r.get("eval_id", float("inf")), r["id"]))
+    runs.sort(key=lambda r: (r.get("eval_id") if r.get("eval_id") is not None else float("inf"), r["id"]))
     return runs
 
 
@@ -86,6 +86,7 @@ def build_run(root: Path, run_dir: Path) -> dict | None:
     """Build a run dict with prompt, outputs, and grading data."""
     prompt = ""
     eval_id = None
+    has_eval_id = False
 
     # Try eval_metadata.json
     for candidate in [run_dir / "eval_metadata.json", run_dir.parent / "eval_metadata.json"]:
@@ -97,6 +98,7 @@ def build_run(root: Path, run_dir: Path) -> dict | None:
             except (json.JSONDecodeError, OSError):
                 pass
             if prompt:
+                has_eval_id = eval_id is not None
                 break
 
     # Fall back to transcript.md
@@ -137,13 +139,15 @@ def build_run(root: Path, run_dir: Path) -> dict | None:
             if grading:
                 break
 
-    return {
+    result = {
         "id": run_id,
         "prompt": prompt,
-        "eval_id": eval_id,
         "outputs": output_files,
         "grading": grading,
     }
+    if has_eval_id:
+        result["eval_id"] = eval_id
+    return result
 
 
 def embed_file(path: Path) -> dict:
