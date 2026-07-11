@@ -1,0 +1,2 @@
+It's a direct port of https://github.com/anthropics/skills/tree/main/skills/skill-creator for pi with minor changes to make it work on pi. 
+The original skill-creator is a tool for creating skills for the Anthropics platform, and this version has been adapted to run with pi agents.
