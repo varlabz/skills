@@ -1,136 +1,68 @@
 {
-  "skillName": "convert-to-markdown",
-  "description": "Evals for the convert-to-markdown skill — tests correct identification of file/URL type and appropriate use of markitdown, youtube-transcript, web-to-md, or mhtml-to-md tools.",
+  "skill_name": "convert-to-markdown",
   "evals": [
     {
-      "id": "pdf-to-md",
-      "name": "Convert PDF report to Markdown",
-      "description": "User provides a local .pdf file and asks for its content in markdown format. The skill should use `uvx markitdown` on the PDF path.",
-      "toolProfile": "normal",
+      "id": 1,
       "prompt": "I have a PDF report at ./reports/quarterly-report-2024.pdf that I need to review as Markdown. Can you convert it for me?",
-      "expectedBehavior": [
-        "Agent recognizes the .pdf extension and selects `uvx markitdown`",
-        "Runs `uvx markitdown ./reports/quarterly-report-2024.pdf` (or writes output to a file with `-o`)",
-        "Presents or saves the resulting markdown content"
-      ],
-      "successCriteria": [
-        "Output is valid Markdown",
-        "Headings, paragraphs, and tables from the PDF are preserved in structure",
+      "expected_output": "Markdown text extracted from the PDF with headings, paragraphs preserved in structure.",
+      "files": ["evals/files/quarterly-report-2024.pdf"],
+      "expectations": [
+        "Agent runs `uvx markitdown` on the PDF path (not some other tool)",
+        "Output contains 'Quarterly Report Q4 2024' heading",
         "No hallucinated content beyond what was in the PDF"
       ]
     },
     {
-      "id": "docx-to-md",
-      "name": "Convert Word document to Markdown",
-      "description": "User provides a .docx file and wants it converted. The skill should use `uvx markitdown` on the DOCX path.",
-      "toolProfile": "normal",
+      "id": 2,
       "prompt": "Can you turn this Word doc into markdown? ./docs/proposal.docx",
-      "expectedBehavior": [
-        "Agent identifies .docx as a supported format for `uvx markitdown`",
-        "Runs `uvx markitdown ./docs/proposal.docx`",
-        "Presents the resulting markdown"
-      ],
-      "successCriteria": [
-        "Output is valid Markdown preserving document structure (headings, lists, tables)",
+      "expected_output": "Markdown preserving the DOCX document structure — headings, lists converted correctly.",
+      "files": ["evals/files/proposal.docx"],
+      "expectations": [
+        "Agent runs `uvx markitdown` on the .docx path",
+        "Output contains 'Project Proposal - Q1 2025' heading",
         "No content hallucinated beyond what was in the DOCX"
       ]
     },
     {
-      "id": "youtube-transcript",
-      "name": "Extract YouTube video transcript",
-      "description": "User provides a YouTube URL and wants the transcript. The skill should use the `./scripts/youtube-transcript` script.",
-      "toolProfile": "normal",
+      "id": 3,
       "prompt": "I need the transcript from this YouTube video: https://www.youtube.com/watch?v=dQw4w9WgXcQ — can you grab it for me?",
-      "expectedBehavior": [
-        "Agent identifies a YouTube URL and selects `./scripts/youtube-transcript`",
-        "Runs the script with the provided URL",
-        "Presents or saves the transcript"
-      ],
-      "successCriteria": [
+      "expected_output": "Readable transcript text extracted from the YouTube video's subtitles.",
+      "expectations": [
+        "Agent runs `./scripts/youtube-transcript` (not `uvx markitdown`) on the YouTube URL",
         "Output contains readable transcript text from the video",
-        "If --info flag used, metadata (title, channel) is included",
-        "Agent does not attempt to use `uvx markitdown` on a YouTube URL (wrong tool)"
+        "Agent does not hallucinate a fake transcript"
       ]
     },
     {
-      "id": "web-page-to-md",
-      "name": "Convert web page to Markdown via Crawl4AI",
-      "description": "User provides a regular website URL and wants it as markdown. The skill should use `./scripts/web-to-md` (assuming Crawl4AI server is available).",
-      "toolProfile": "normal",
+      "id": 4,
       "prompt": "Convert this webpage to markdown: https://en.wikipedia.org/wiki/Markdown",
-      "expectedBehavior": [
-        "Agent identifies a regular HTTP URL and selects `./scripts/web-to-md`",
-        "Checks for Crawl4AI server availability or notes the prerequisite",
-        "Runs `./scripts/web-to-md https://en.wikipedia.org/wiki/Markdown`"
-      ],
-      "successCriteria": [
-        "Output is valid Markdown with headings, paragraphs, and links preserved",
-        "Agent does not attempt `uvx markitdown` on a live URL (wrong tool for this case)",
-        "If Crawl4AI server isn't running, agent notes the prerequisite or falls back to saving HTML + using markitdown"
+      "expected_output": "Valid Markdown representation of the Wikipedia page with headings, paragraphs, and links.",
+      "expectations": [
+        "Agent runs `./scripts/web-to-md` (or falls back to curl + markitdown if Crawl4AI unavailable)",
+        "Output contains Markdown from the web page content",
+        "Agent does not attempt to run `uvx markitdown` directly on a live URL"
       ]
     },
     {
-      "id": "xlsx-to-md",
-      "name": "Convert Excel spreadsheet to Markdown tables",
-      "description": "User provides an .xlsx file and wants it converted. The skill should use `uvx markitdown`.",
-      "toolProfile": "normal",
-      "prompt": "I need the data from this spreadsheet as markdown: ./data/sales-2024.xlsx",
-      "expectedBehavior": [
-        "Agent identifies .xlsx and selects `uvx markitdown`",
-        "Runs `uvx markitdown ./data/sales-2024.xlsx`",
-        "Presents the resulting markdown with tables for each sheet"
-      ],
-      "successCriteria": [
-        "Output contains Markdown tables representing spreadsheet data",
-        "Multiple sheets appear as separate sections/tables in the output"
-      ]
-    },
-    {
-      "id": "mhtml-to-md",
-      "name": "Convert MHTML file to Markdown",
-      "description": "User provides an .mhtml file and wants it converted. The skill should use `./scripts/mhtml-to-md`.",
-      "toolProfile": "normal",
+      "id": 5,
       "prompt": "Convert this saved web archive to markdown: ./saved/page.mhtml",
-      "expectedBehavior": [
-        "Agent identifies .mhtml extension and selects `./scripts/mhtml-to-md`",
-        "Runs `./scripts/mhtml-to-md ./saved/page.mhtml`",
-        "Presents the resulting markdown"
-      ],
-      "successCriteria": [
-        "Output is valid Markdown from the MHTML content",
-        "Agent does not use `uvx markitdown` on .mhtml (wrong tool per skill docs)"
+      "expected_output": "Valid Markdown extracted from the MHTML file with headings and lists.",
+      "files": ["evals/files/page.mhtml"],
+      "expectations": [
+        "Agent runs `./scripts/mhtml-to-md` on the .mhtml path (not `uvx markitdown`)",
+        "Output contains 'Sample Web Page' heading",
+        "No hallucinated content"
       ]
     },
     {
-      "id": "image-exif-ocr",
-      "name": "Extract text from image via OCR",
-      "description": "User provides an image file and wants the text content. The skill should use `uvx markitdown` which handles images with EXIF + OCR.",
-      "toolProfile": "normal",
+      "id": 6,
       "prompt": "What does this image say? ./photos/sign.jpg",
-      "expectedBehavior": [
-        "Agent identifies .jpg as an image and selects `uvx markitdown`",
-        "Runs `uvx markitdown ./photos/sign.jpg`",
-        "Presents the extracted text (EXIF metadata + OCR)"
-      ],
-      "successCriteria": [
-        "Output includes any readable text from the image via OCR",
-        "EXIF metadata is included if present"
-      ]
-    },
-    {
-      "id": "csv-to-md",
-      "name": "Convert CSV to Markdown table",
-      "description": "User provides a .csv file and wants it as markdown. The skill should use `uvx markitdown`.",
-      "toolProfile": "normal",
-      "prompt": "Turn this CSV into a nice markdown table: ./data/users.csv",
-      "expectedBehavior": [
-        "Agent identifies .csv and selects `uvx markitdown`",
-        "Runs `uvx markitdown ./data/users.csv`",
-        "Presents the resulting Markdown table"
-      ],
-      "successCriteria": [
-        "Output is a properly formatted Markdown table",
-        "Headers and data rows are preserved correctly"
+      "expected_output": "Agent attempts to extract text from the image. For images without text, output may be empty or contain EXIF metadata.",
+      "files": ["evals/files/test-image.jpg.png"],
+      "expectations": [
+        "Agent runs `uvx markitdown` on the image path (not some other tool)",
+        "Output is valid Markdown format",
+        "No hallucinated text content"
       ]
     }
   ]

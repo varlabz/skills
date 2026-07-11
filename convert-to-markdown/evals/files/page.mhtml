@@ -1,0 +1,26 @@
+From: "<Test User>"
+Subject: Test Page
+Date: Mon, 1 Jan 2024 00:00:00 +0000
+MIME-Version: 1.0
+Content-Type: multipart/related; boundary="----=_Part_0"
+
+------=_Part_0
+Content-Location: http://example.com/page.html
+Content-Type: text/html; charset="utf-8"
+
+<!DOCTYPE html>
+<html>
+<head><title>Test Page</title></head>
+<body>
+<h1>Sample Web Page</h1>
+<p>This is a test page for MHTML conversion.</p>
+<ul>
+  <li>Item one</li>
+  <li>Item two</li>
+  <li>Item three</li>
+</ul>
+<p>Contact us at <a href="mailto:test@example.com">test@example.com</a></p>
+</body>
+</html>
+
+------=_Part_0--
