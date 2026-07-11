@@ -45,9 +45,11 @@ Include metadata (form, word list used, tone) only if the user explicitly asks f
    - Line length patterns
    - Imagery and figurative language style
    - Voice and perspective
-3. **Infer tone.** If no tone is specified, infer one from style examples and word list.
-   Only ask the user if everything is genuinely ambiguous — otherwise pick a reasonable default
-   and proceed.
+3. **Handle missing tone.**
+   - If inputs exist (word list, style example, theme) but no tone: infer from what's provided.
+   - If the user gave *nothing at all* (no words, no style, no theme): ask them what kind of poem
+     they want before writing. Don't guess from nothing — a random sonnet about time and memory
+     is less useful than a conversation that finds what they actually care about.
 4. **Plan the poem.** Decide on form (if not specified), then sketch how to incorporate the word list naturally.
 5. **Write.** Draft the poem with attention to rhythm, imagery, emotional arc, and natural integration of provided words.
 6. **Review.** Read it aloud mentally — check flow, ensure forced rhymes don't break meaning, verify all required words appear if a word list was given.
@@ -77,7 +79,9 @@ If the user provides an existing draft for improvement, treat it as a revision r
 
 ## Handling Edge Cases
 
-- **No inputs at all:** Ask the user what kind of poem they want (or suggest a few directions). Don't write something generic.
+- **No inputs at all:** This is covered in Process step 3 — ask before writing. The one exception:
+   if the user seems to want a quick spontaneous poem (e.g., "surprise me" or "write anything"),
+   pick a simple form and warm tone rather than asking further.
 - **Conflicting style examples:** Note the differences and ask which direction to prioritize, or blend them thoughtfully if compatible.
 - **Style example in another language:** Imitate the form and aesthetic while writing in English (unless the user requests otherwise).
 - **Very long word list (>20 words):** Mention that some words may not fit naturally and ask if they want all included or a selection.
