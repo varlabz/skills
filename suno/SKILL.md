@@ -91,6 +91,50 @@ Place each tag on its own line, directly before the section it controls.
 
 ---
 
+## Parenthetical Instructions (v5)
+
+Suno v5 interprets text inside **parentheses `( )`** as literal performance directions — not lyrics. The model performs whatever you describe inside them. This is one of the most powerful features in v5 for both vocal and instrumental tracks.
+
+**How they work:**
+- Parenthetical instructions go **inside the Lyrics field**, on the same line as (or directly after) a metatag.
+- They are **not sung as words** — they are instructions for *how* the music should sound.
+- They affect dynamics, tone, instrumentation, mic proximity, and performance style.
+- Multiple parenthetical instructions can be stacked on one line, separated by commas.
+
+**Examples:**
+- `(soft sigh)` → the model performs a soft sigh sound
+- `(drums build)` → the model builds drum intensity
+- `(whispered ad-lib)` → whispered vocal interjection
+- `(heavy guitar riff in 7/8, sparse and syncopated)` → plays a heavy guitar riff in 7/8 time, sparse and syncopated
+- `(distorted bass takes the lead, gritty percussive plucking)` → distorted bass plays prominently with a gritty, percussive style
+- `(everything drops, synthesizer drones, distant guitar feedback)` → full arrangement cuts out, leaving synth drones and guitar feedback
+- `(double-time drums, layered guitar harmonies, synth bass rumble)` → all instruments play at double-time with layered guitars and deep synth bass
+
+**Parenthetical instructions for instrumental tracks:**
+When using the Instrumental toggle, parenthetical instructions become your primary way to direct the arrangement. Without lyrics, Suno needs explicit musical directions:
+- Describe **what instrument plays** and **how**: `(jagged angular guitar solo, dissonant intervals, chromatic runs)`
+- Describe **arrangement density**: `(everything drops, sparse cymbal hits, tension builds slowly)`
+- Describe **energy shifts**: `(drums accelerate, bass returns with increasing intensity, guitars layer in)`
+- Describe **time feel**: `(syncopated bass and guitar riff in 7/8, deliberate footsteps)`
+
+**Best practices:**
+- Be **specific and concrete** — avoid vague terms like "nice" or "good." Use descriptive musical language.
+- Place the **most important instruction first** — Suno weights the beginning of the parenthetical more heavily.
+- Keep them **concise** — 5–15 words per parenthetical works best. Long instructions may be truncated.
+- Use **action verbs** — "plays," "builds," "drops," "crashes," "trades," "decays."
+- Combine **instrument + technique + mood** for maximum control: `(guitar and bass trade phrases, call and response, tense atmosphere)`
+- Parenthetical instructions **override** generic style tags for that section — they are section-specific.
+
+**Parenthetical vs. Metatag — what goes where:**
+| Square brackets `[ ]` | Parentheses `( )` |
+|-----------------------|--------------------|
+| Section structure: `[Verse]`, `[Chorus]` | Performance direction: `(heavy guitar riff)` |
+| Vocal/instrument type: `[Guitar Solo]` | How it sounds: `(jagged, dissonant, chromatic)` |
+| Energy level: `[Drop]` | What happens: `(everything hits at once, double-time)` |
+| Global style (in Style field) | Section-specific direction (in Lyrics field) |
+
+---
+
 ## Instrumental Mode & Negative Prompts
 
 When the user wants music without vocals, guide them on Suno's UI controls rather than trying to force "no vocals" through text prompts alone:
