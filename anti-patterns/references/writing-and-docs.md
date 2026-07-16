@@ -1,16 +1,20 @@
 # Writing and Documentation Anti-Patterns
 
-## Translation Artifacts
+## Formulaic Openings & Translation Artifacts
 
-Avoid Russian→English literal translations and over-literal phrasing:
+Avoid robotic intros, Russian→English literal translations, and over-literal phrasing:
 
 | Anti-Pattern | Fix |
 |-------------|-----|
+| "In today's world..." / "In today's fast-paced world..." / "In the modern world..." | Start with the actual topic |
+| "It is important to note that..." / "It should be noted that..." | Just make the point |
+| "It is worth noting that..." / "It is worth mentioning that" | Just mention it — or delete |
+| "One must consider..." | State what should be considered |
+| "It goes without saying that..." | Skip it |
+| "As we all know..." | Assume competence, skip the preamble |
+| "The question of whether..." | State the question directly |
 | "and I realized..." | Delete or rephrase |
 | "point." (as standalone sentence) | Delete |
-| "It is worth noting that..." | Delete or state the fact directly |
-| "In the modern world..." / "In today's world..." | Start with the actual topic |
-| "It should be noted that..." | Delete |
 
 ## Corporate Jargon
 
@@ -59,9 +63,9 @@ Write tight, well-structured content:
 | Summary that adds nothing new | Make it actionable |
 | "In conclusion..." | The last point is the conclusion |
 
-## Hedging & Weak Language
+## Hedging & Weak Transitions
 
-State things directly. Remove unnecessary qualifiers:
+State things directly. Remove unnecessary qualifiers and repetitive connectors:
 
 | Anti-Pattern | Fix |
 |-------------|-----|
@@ -69,36 +73,25 @@ State things directly. Remove unnecessary qualifiers:
 | "it seems that" | State the observation |
 | "I think that" | Just state it |
 | "perhaps we could consider" | Make a recommendation |
-| "it is important to note" | Just note it |
-| "it is worth mentioning" | Just mention it — or delete |
+| "Additionally," (every sentence) | Vary or delete |
+| "Furthermore," (every paragraph) | Use naturally or skip |
+| "Moreover," (every point) | Vary or delete |
+| "In conclusion," | The last point is the conclusion |
+| "To summarize," | Just summarize |
+| "As previously mentioned" | Trust the reader remembers |
 
-## AI-Specific Artifacts
+## AI Clichés & Buzzwords
 
-Never use these AI clichés:
-
-| Anti-Pattern | Fix |
-|-------------|-----|
-| "Let's dive in" | Start with the content |
-| "Here's the thing" | State the point |
-| "Game-changer" / "game-changing" | Show the evidence |
-| "Revolutionary" | Name what actually changed |
-| "In today's world" | Start with the topic |
-| "It's all about" | State the purpose directly |
-| "At the core" | State the core directly |
-| "Not just X, but Y" | Use naturally or rephrase |
-| "Whether you're X or Y" | Address the audience directly |
-| "In a world where..." | Start with the actual problem |
-| "I'm here to" | Skip the preamble |
-| "As an AI language model..." | Skip the preamble |
-| "Let me break it down" | Just break it down |
-| "TL;DR" used incorrectly | Use only when genuinely summarizing multiple points; place at the end |
-
-## Overused Buzzwords
-
-Replace with plain language:
+Never use these AI-generated phrases or empty buzzwords:
 
 | Anti-Pattern | Fix |
 |-------------|-----|
+| "Let's dive in" / "Here's the thing" / "Let me break it down" | Start with the content |
+| "Game-changer" / "game-changing" / "Revolutionary" | Show the evidence |
+| "In today's world" / "In a world where..." | Start with the actual topic |
+| "It's all about" / "At the core" | State the purpose directly |
+| "Not just X, but Y" / "Whether you're X or Y" | Use naturally or rephrase |
+| "I'm here to" / "As an AI language model..." | Skip the preamble |
 | "delve" | "look into" or "study" |
 | "tapestry" | Describe the actual relationship |
 | "landscape" | Name the specific field/area |
@@ -110,35 +103,8 @@ Replace with plain language:
 | "seamless" | Describe the actual integration |
 | "empower" | Say who does what |
 | "unlock" | Describe the actual benefit |
-| "navigate" | Describe what they actually did |
-| "harness" | Describe what they actually did |
-
-## Robotic Openings
-
-Start with the actual topic, not formulaic intros:
-
-| Anti-Pattern | Fix |
-|-------------|-----|
-| "In today's fast-paced world..." | Start with the actual topic |
-| "It is important to note that..." | Just make the point |
-| "One must consider..." | State what should be considered |
-| "It goes without saying that..." | Skip it |
-| "As we all know..." | Assume competence, skip the preamble |
-| "The question of whether..." | State the question directly |
-
-## Repetitive Transitions
-
-Vary transitions or skip them:
-
-| Anti-Pattern | Fix |
-|-------------|-----|
-| "Additionally," (every sentence) | Vary or delete |
-| "Furthermore," (every paragraph) | Use naturally or skip |
-| "Moreover," (every point) | Vary or delete |
-| "In conclusion," | The last point is the conclusion |
-| "To summarize," | Just summarize |
-| "As previously mentioned" | Trust the reader remembers |
-| "It is worth mentioning that" | Just mention it — or delete |
+| "navigate" / "harness" | Describe what they actually did |
+| "TL;DR" used incorrectly | Use only when genuinely summarizing multiple points; place at the end |
 
 ## Overly Formal Tone
 
@@ -167,7 +133,7 @@ Write clear, complete documentation:
 | Overusing "simply" or "easily" for complex operations | Describe the actual complexity |
 | Writing docs that assume the reader has the same context | Assume minimal domain knowledge |
 
-## Unnecessary Statistics & Made-Up Quotes
+## Fake Statistics & Quotes
 
 Don't fabricate or cite without sources:
 

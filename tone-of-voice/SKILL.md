@@ -1,6 +1,6 @@
 ---
 name: tone-of-voice
-description: >-
+description: |
   Apply a direct, pragmatic, clear, honest, warm tone to all generated text.
   Use when the user asks to write, rewrite, or edit text in a specific tone —
   especially when they mention "tone of voice," "our voice," "write like this,"

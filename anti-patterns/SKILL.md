@@ -1,5 +1,8 @@
-anti-patterns
-How to write clean, direct, honest text — and avoid the patterns that make writing feel hollow, evasive, or AI-generated. Use this skill whenever the user asks you to write, draft, compose, or generate any kind of text content — articles, documentation, summaries, notes, emails, blog posts, reports, transcripts, or any written output. Also use when the user says "write this," "draft a," "compose," "generate text," or gives you source material to rewrite. Apply these anti-patterns to every piece of text you produce, not just when explicitly asked. If the user provides source material (notes, transcripts, raw text), rewrite it in clean prose free of these patterns. When in doubt, default to this skill's standards.
+---
+name: anti-patterns
+description: |
+  How to write clean, direct, honest text — and avoid the patterns that make writing feel hollow, evasive, or AI-generated. Use this skill for substantial written content — articles, documentation, summaries, notes, emails, blog posts, reports, and similar outputs. Also use when the user says "write this," "draft a," "compose," "generate text," or gives you source material to rewrite. Apply these anti-patterns to all written output, not just when explicitly asked. If the user provides source material (notes, transcripts, raw text), rewrite it in clean prose free of these patterns. For casual conversation and short replies, apply only the most obvious violations (e.g., robotic openings, fabricated statistics).
+---
 
 ## Core Principles
 
@@ -19,7 +22,7 @@ How to write clean, direct, honest text — and avoid the patterns that make wri
 
 The detailed anti-patterns are organized into three reference files. Read the relevant one based on what you're writing:
 
-- **Writing and documentation** (`references/writing-and-docs.md`) — Translation artifacts, corporate jargon, vague language, structural problems, hedging, AI clichés, buzzwords, robotic openings, repetitive transitions, overly formal tone, technical documentation pitfalls, fake statistics, formatting problems
+- **Writing and documentation** (`references/writing-and-docs.md`) — Formulaic openings, translation artifacts, corporate jargon, vague language, structural problems, hedging, AI clichés, buzzwords, overly formal tone, technical documentation pitfalls, fake statistics, formatting problems
 - **Reasoning** (`references/reasoning.md`) — Logical fallacies (false dichotomy, circular reasoning, straw man, etc.) and false balance (giving equal weight to unequal evidence)
 - **LLM-specific** (`references/llm-patterns.md`) — Behavioral pitfalls (hallucination, sycophancy, overconfidence), coding anti-patterns (API hallucination, overengineering, missing error handling), prompt engineering mistakes, and security concerns
 
@@ -29,13 +32,13 @@ Read the full reference when you're unsure whether something falls into a catego
 
 Before responding, scan your output for these high-frequency offenders:
 
-1. **Robotic openings** — "In today's world," "Let me break it down," "It's important to note that" → Start with the actual topic
-2. **Corporate buzzwords** — "leverage," "synergy," "deep dive," "holistic" → Use plain language
-3. **AI clichés** — "Game-changer," "tapestry," "delve," "robust" → Show evidence, don't label
-4. **Hedging** — "I think," "it seems," "might possibly" → State what you know
+1. **Robotic openings** — "In today's world," "Let me break it down" → See `references/writing-and-docs.md`
+2. **Corporate buzzwords** — "leverage," "synergy," "deep dive" → See `references/writing-and-docs.md`
+3. **AI clichés** — "Game-changer," "tapestry," "delve" → See `references/writing-and-docs.md`
+4. **Hedging** — "I think," "it seems," "might possibly" → See `references/writing-and-docs.md`
 5. **Vague quantifiers** — "many," "various," "significantly" → Give numbers or names
-6. **Repetitive transitions** — "Additionally," "Furthermore," "Moreover" on every sentence → Vary or delete
-7. **False balance** — "Some say X, others say Y" when evidence is clear → State what the evidence shows
+6. **Sycophancy** — Agreeing with the user, softening criticism, avoiding direct answers → State what you actually think
+7. **False balance** — "Some say X, others say Y" when evidence is clear → See `references/reasoning.md`
 8. **Unnecessary preamble** — "I'm here to help you with..." → Skip it
 
 ## Examples
@@ -51,3 +54,11 @@ Before responding, scan your output for these high-frequency offenders:
 **Bad:** "Let's dive in! Here's the thing — in a world where everything is connected, it's all about leveraging cutting-edge technology to unlock seamless solutions."
 
 **Good:** "The system connects three services: the auth gateway, the payment processor, and the notification service. Here's how data flows between them."
+
+**Bad (reasoning):** "Some developers prefer Python for its simplicity, while others prefer Rust for its performance. Both approaches have merit depending on your perspective."
+
+**Good (reasoning):** "Python is simpler for prototyping; Rust is faster for performance-critical code. For a real-time data pipeline, Rust is the better choice — here's why."
+
+**Bad (LLM coding):** "You could potentially consider using a microservices architecture to leverage the full power of cloud-native technologies."
+
+**Good (LLM coding):** "Use a single service with a modular design. Microservices add deployment complexity you don't need until you have 5+ engineers. Here's the module structure:"
