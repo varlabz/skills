@@ -1,0 +1,26 @@
+{
+  "skill_name": "tone-of-voice",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Rewrite this paragraph in our tone of voice: 'The implementation of this innovative solution has the potential to significantly enhance the onboarding experience for new team members, and I realized that it could possibly streamline the process.'",
+      "expected_output": "Direct, simple language. No 'innovative,' 'significantly,' or 'I realized.' Concrete or deleted vague claims.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 1,
+      "prompt": "Write a summary of this talk in our tone of voice. The speaker is Dr. Chen, and the talk was at TechConf 2024 on March 15. Duration: 45 minutes. Topic: how the team reduced API latency from 200ms to 20ms by switching from JSON to Protocol Buffers. Key points: they tried gRPC first but it added complexity, so they went with flatbuffers. The tradeoff was slightly harder debugging. 1 out of 3 engineers adopted it in the first month.",
+      "expected_output": "Warm but matter-of-fact tone. Has metadata (speaker, event, date, duration). Clear headline. Specific numbers used. No filler phrases. Paragraphs are 2-4 sentences.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "prompt": "Write API documentation for a /users endpoint that returns a list of users. GET /users?role=admin returns admin users. Returns 401 if not authenticated. Response is a JSON array of {id, name, email, role}. Keep it in our tone of voice.",
+      "expected_output": "Matter-of-fact, precise tone for technical docs. Clear structure. No fluff or padding. Direct language.",
+      "files": [],
+      "assertions": []
+    }
+  ]
+}
