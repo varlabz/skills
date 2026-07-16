@@ -1,0 +1,47 @@
+{
+  "skill_name": "anti-patterns",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "Draft a blog post about why our team decided to migrate from monolith to microservices. We moved over 6 months, had some downtime but recovered. The main benefits were faster deployments and better fault isolation.",
+      "expected_output": "A blog post that starts directly with the migration story, uses specific numbers (6 months, deployment frequency improvements), avoids AI clichés ('game-changer,' 'delve,' 'tapestry'), corporate jargon ('leverage,' 'synergy'), robotic openings, and hedging language.",
+      "assertions": [
+        {"text": "No robotic openings in first sentence", "passed": false, "evidence": ""},
+        {"text": "No corporate buzzwords (leverage, synergy, paradigm shift, holistic, deep dive, move the needle, game-changer, cutting-edge, robust, seamless, empower, unlock, delve, tapestry, landscape, realm, ecosystem)", "passed": false, "evidence": ""},
+        {"text": "No AI clichés (Let's dive in, Here's the thing, It's all about, At the core, In a world where, I'm here to, Let me break it down)", "passed": false, "evidence": ""},
+        {"text": "No hedging (I think that, it seems that, perhaps we could consider, it is worth noting that)", "passed": false, "evidence": ""},
+        {"text": "No vague quantifiers without numbers (many people, various factors, significantly improved)", "passed": false, "evidence": ""},
+        {"text": "No overly formal tone (utilize, facilitate, subsequently, aforementioned, herein lies, it is imperative that)", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 1,
+      "prompt": "Write an email to my team explaining that we're changing our CI/CD pipeline. The new pipeline uses GitHub Actions instead of Jenkins. It takes 12 minutes instead of 25. There might be some initial issues with the Docker builds but we're working on it.",
+      "expected_output": "A direct, practical email. No 'I think that perhaps,' no 'it's important to note,' no robotic openings. States the change clearly upfront, gives the specific numbers (12 min vs 25 min), addresses the Docker issue honestly without excessive hedging.",
+      "assertions": [
+        {"text": "No robotic openings in first sentence (I'm writing to, I wanted to, I'm excited to share)", "passed": false, "evidence": ""},
+        {"text": "No corporate jargon (leverage, synergy, deep dive, move the needle, holistic, actively working on resolving)", "passed": false, "evidence": ""},
+        {"text": "No vague quantifiers (significantly reduce without numbers)", "passed": false, "evidence": ""},
+        {"text": "No hedging (I think that, it seems that, perhaps we could consider, might possibly)", "passed": false, "evidence": ""},
+        {"text": "No AI clichés (Let's dive in, Here's the thing, It's all about, I'm here to, don't hesitate to reach out)", "passed": false, "evidence": ""},
+        {"text": "No overly formal tone (utilize, facilitate, subsequently, it is imperative that)", "passed": false, "evidence": ""}
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Write a technical guide on how to set up authentication with JWT tokens in a Node.js Express app. Include error handling and token refresh.",
+      "expected_output": "Clear technical documentation with explicit prerequisites, consistent voice, error cases documented, no assuming the reader has the same context. No 'simply' or 'easily' for complex steps. Code examples should be complete with imports.",
+      "assertions": [
+        {"text": "No robotic openings (In today's world, Let me walk you through, Here's a comprehensive guide)", "passed": false, "evidence": ""},
+        {"text": "No unnecessary basic explanation (long paragraph explaining what JWTs are)", "passed": false, "evidence": ""},
+        {"text": "No corporate buzzwords (leverage, robust, seamless, empower, unlock, delve, tapestry, landscape, realm, ecosystem)", "passed": false, "evidence": ""},
+        {"text": "No AI clichés (Let's dive in, Here's the thing, It's all about, At the core, game-changer, revolutionary)", "passed": false, "evidence": ""},
+        {"text": "No hedging (I think that, it seems that, perhaps we could consider, it is worth noting that)", "passed": false, "evidence": ""},
+        {"text": "No overly formal tone (utilize, facilitate, subsequently, aforementioned, herein lies, it is imperative that)", "passed": false, "evidence": ""},
+        {"text": "No 'simply' or 'easily' for complex operations", "passed": false, "evidence": ""},
+        {"text": "Includes prerequisites (Node version, dependencies)", "passed": false, "evidence": ""},
+        {"text": "Includes error handling documentation", "passed": false, "evidence": ""}
+      ]
+    }
+  ]
+}
