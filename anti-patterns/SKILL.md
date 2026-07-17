@@ -1,7 +1,6 @@
 ---
 name: anti-patterns
-description: |
-  How to write clean, direct, honest text — and avoid the patterns that make writing feel hollow, evasive, or AI-generated. Use this skill for substantial written content — articles, documentation, summaries, notes, emails, blog posts, reports, and similar outputs. Also use when the user says "write this," "draft a," "compose," "generate text," or gives you source material to rewrite. Apply these anti-patterns to all written output, not just when explicitly asked. If the user provides source material (notes, transcripts, raw text), rewrite it in clean prose free of these patterns. For casual conversation and short replies, apply only the most obvious violations (e.g., robotic openings, fabricated statistics).
+description: Write clean, direct, honest text. Avoid patterns that make writing feel hollow, evasive, or AI-generated.
 ---
 
 ## Core Principles

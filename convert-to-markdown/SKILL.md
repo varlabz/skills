@@ -1,14 +1,14 @@
 ---
 name: convert-to-markdown
-description: "Convert files and web pages to Markdown. Use this skill whenever the user asks to extract text from PDFs, Word docs (.docx), PowerPoint (.pptx), Excel spreadsheets (.xlsx), images, audio files, EPUB ebooks, CSV/JSON/XML, MHTML archives, YouTube transcripts, or any website URL — even if they don't explicitly say 'markdown' or 'convert'. Also use when the user says 'read this file', 'get the text from', 'extract content from', 'transcribe', or 'grab the transcript' for any of these formats."
-compatibility: Requires uvx (uv). Scripts fetch dependencies at runtime.
+description: "Fetch web content. Use when the user asks to extract text from PDFs, Word docs, PowerPoint, Excel, images, audio, EPUBs, MHTML, YouTube transcripts, or any URL — even if they say 'read this file', 'get the text from', 'extract content', or 'transcribe'."
+argument-hint: "file path, URL, or YouTube video"
 metadata:
   tools: "uvx"
 ---
 
 # Convert Files and URLs to Markdown
 
-Run commands via `uvx` — it fetches Python deps on the fly, no permanent install needed. All scripts live in `scripts/`.
+All scripts live in `scripts/`. Run them "as is".
 
 ## Tool Selection
 
