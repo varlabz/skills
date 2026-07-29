@@ -1,0 +1,224 @@
+#!/usr/bin/env -S uvx --with openserp python
+"""Search a local OpenSERP instance and output results."""
+
+import argparse
+import json
+import os
+import sys
+
+from openserp import ExtractMode, OpenSERP
+
+DEFAULT_URL = "http://localhost:7007"
+
+OPENSERP_ENGINES = [
+    "google",
+    "bing",
+    "duckduckgo",
+    "yandex",
+    "baidu",
+    "ecosia",
+]
+
+OPENSERP_MODES = ["balanced", "any", "fast"]
+
+
+def search(
+    query,
+    engines,
+    mode="balanced",
+    limit=10,
+    region=None,
+    lang=None,
+    date=None,
+    site=None,
+    file_ext=None,
+    start=None,
+    extract=None,
+    extract_mode=None,
+    min_runes=None,
+    base_url=None,
+):
+    """Perform a multi-engine search and return merged results.
+
+    Uses the OpenSERP SDK's mega_search endpoint for parallel engine queries.
+    """
+    base_url = base_url or os.environ.get("OPENSERP_URL", DEFAULT_URL)
+
+    params = {"text": query, "limit": limit}
+    if region:
+        params["region"] = region
+    if lang:
+        params["lang"] = lang
+    if date:
+        params["date"] = date
+    if site:
+        params["site"] = site
+    if file_ext:
+        params["file"] = file_ext
+    if start is not None:
+        params["start"] = start
+    if extract is not None:
+        params["extract"] = extract
+    if extract_mode:
+        params["extract_mode"] = extract_mode
+    if min_runes is not None:
+        params["min_runes"] = min_runes
+
+    with OpenSERP(base_url=base_url) as client:
+        resp = client.mega_search(engines=engines, mode=mode, **params)
+        return resp.results if hasattr(resp, "results") else []
+
+
+def format_text(results, query):
+    """Format results as a numbered text list."""
+    if not results:
+        print(f"No results found for: {query}")
+        return
+
+    print(f"Search results for: {query}\n")
+    for i, r in enumerate(results, 1):
+        title = r.title or "Untitled"
+        url = r.url or ""
+        snippet = r.snippet or ""
+        engine = r.engine or ""
+        print(f"{i}. {title}")
+        print(f"   {url}")
+        if snippet:
+            print(f"   {snippet[:200]}")
+        if engine:
+            print(f"   Source: {engine}")
+        print()
+
+
+def format_json(results):
+    """Format results as JSON."""
+    output = []
+    for r in results:
+        item = {
+            "title": r.title or "",
+            "url": r.url or "",
+            "engine": r.engine or "",
+            "content": r.snippet or "",
+        }
+        if r.extracted:
+            item["extracted"] = {
+                "content": r.extracted.content or "",
+                "mode": r.extracted.mode_used or "",
+            }
+        output.append(item)
+    print(json.dumps(output, indent=2, ensure_ascii=False))
+
+
+def main():
+    eng_help = f"OpenSERP engine: {', '.join(OPENSERP_ENGINES)}"
+    mode_help = f"Mega search mode: {', '.join(OPENSERP_MODES)}"
+    parser = argparse.ArgumentParser(
+        description="Search a local OpenSERP instance",
+        epilog="Set OPENSERP_URL environment variable to override the default instance URL.",
+    )
+    parser.add_argument("query", nargs="+", help="Search query")
+    parser.add_argument(
+        "--engines",
+        "-E",
+        default="google,bing,duckduckgo",
+        help=f"Comma-separated engines: {', '.join(OPENSERP_ENGINES)} (default: google,bing,duckduckgo)",
+    )
+    parser.add_argument(
+        "--mode",
+        default="balanced",
+        choices=OPENSERP_MODES,
+        help=f"Mega mode: {', '.join(OPENSERP_MODES)}",
+    )
+    parser.add_argument(
+        "--limit",
+        "-l",
+        type=int,
+        default=10,
+        help="Maximum results to return (max 100)",
+    )
+    parser.add_argument(
+        "--region",
+        "-r",
+        default=None,
+        help="Region code (e.g. us, uk, de, cn)",
+    )
+    parser.add_argument(
+        "--lang",
+        "-n",
+        default=None,
+        help="Language code (e.g. EN, DE, RU, ES, fr-FR)",
+    )
+    parser.add_argument(
+        "--date",
+        default=None,
+        help="Date range in YYYYMMDD..YYYYMMDD format (e.g. 20250101..20251231)",
+    )
+    parser.add_argument(
+        "--site",
+        default=None,
+        help="Restrict to a specific domain (e.g. github.com)",
+    )
+    parser.add_argument(
+        "--file",
+        default=None,
+        help="File extension filter (e.g. pdf, doc)",
+    )
+    parser.add_argument(
+        "--start",
+        type=int,
+        default=None,
+        help="Pagination offset (e.g. 0, 10, 20)",
+    )
+    parser.add_argument(
+        "--extract",
+        type=int,
+        default=None,
+        help="Fetch page content for top N results (1-5)",
+    )
+    parser.add_argument(
+        "--extract-mode",
+        default=None,
+        choices=["auto", "fast", "rendered"],
+        help="Extraction strategy: auto, fast, rendered",
+    )
+    parser.add_argument(
+        "--format",
+        "-f",
+        default="json",
+        choices=["text", "json"],
+        help="Output format",
+    )
+    parser.add_argument(
+        "--server",
+        "-s",
+        default=None,
+        help="OpenSERP instance URL (overrides OPENSERP_URL env)",
+    )
+    args = parser.parse_args()
+
+    query = " ".join(args.query)
+    engines = [e.strip() for e in args.engines.split(",")]
+    results = search(
+        query=query,
+        engines=engines,
+        mode=args.mode,
+        limit=args.limit,
+        region=args.region,
+        lang=args.lang,
+        date=args.date,
+        site=args.site,
+        file_ext=args.file,
+        start=args.start,
+        extract=args.extract,
+        extract_mode=args.extract_mode,
+        base_url=args.server,
+    )
+
+    if args.format == "json":
+        format_json(results)
+    else:
+        format_text(results, query)
+
+
+if __name__ == "__main__":
+    main()
