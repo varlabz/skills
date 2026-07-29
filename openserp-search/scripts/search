@@ -4,9 +4,8 @@
 import argparse
 import json
 import os
-import sys
 
-from openserp import ExtractMode, OpenSERP
+from openserp import OpenSERP
 
 DEFAULT_URL = "http://localhost:7007"
 
@@ -110,8 +109,6 @@ def format_json(results):
 
 
 def main():
-    eng_help = f"OpenSERP engine: {', '.join(OPENSERP_ENGINES)}"
-    mode_help = f"Mega search mode: {', '.join(OPENSERP_MODES)}"
     parser = argparse.ArgumentParser(
         description="Search a local OpenSERP instance",
         epilog="Set OPENSERP_URL environment variable to override the default instance URL.",
