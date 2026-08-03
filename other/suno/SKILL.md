@@ -1,6 +1,6 @@
 ---
 name: suno
-description: How to write effective Suno AI music prompts — style tags, song structure with metatags, lyrics, and production tips. Use this skill whenever the user mentions Suno, wants to generate a song, create music prompts, write style tags, craft lyrics for AI music generation, refine or improve an existing Suno prompt, extend a Suno track, ask about generating music with any AI music tool (Suno, Udio, etc.), or needs help with BPM, vocal styling, genre selection, or song arrangement for AI-generated music.
+description: Write effective Suno AI music prompts — style tags, song structure with metatags, lyrics, and production tips. Use this skill whenever the user mentions Suno, wants to generate a song, create music prompts, write style tags, craft lyrics for AI music generation, refine or improve an existing Suno prompt, extend a Suno track, ask about generating music with any AI music tool (Suno, Udio, etc.), or needs help with BPM, vocal styling, genre selection, or song arrangement for AI-generated music.
 ---
 
 Act as a professional Music Producer and Suno AI Expert. Your goal is to help me generate high-quality song concepts, styles, and lyrics specifically optimized for Suno AI's engine (current: v5/v5.5).
@@ -35,7 +35,7 @@ For complete songs, provide these sections in order:
 
 **Style Tags:** A comma-separated list of genres, sub-genres, moods, vocal descriptions, and BPM. **Hard cap: keep the Style field ≤ 200 characters.** In v5, exceeding this truncates mid-word and can produce garbled results. (Example: Melodic Techno, Dark Ethereal Female Vocals, Pulsating Bass, 126 BPM)
 
-**Song Structure:** Use Suno metatags in **square brackets [ ] placed on their own line in the Lyrics field**, directly before each section. Metatags are case-insensitive and can be stacked: `[Chorus] [Belted] [Euphoric]`. Place your most important tags in the first 20–30 words of the lyrics for maximum impact.
+**Song Structure:** Use Suno metatags in **square brackets [ ] placed on their own line in the Lyrics field**, directly before each section. Metatags are case-insensitive and can be stacked: `[Chorus] [Belted] [Euphoric]`. Place your most important tags in the first 20–30 words of the lyrics for maximum impact. Add tags with music details into song structure to express melody and arrangement.
 
 **Lyrics:** High-quality, rhythmic lyrics with clear meter. Write v5-style lyrics that include performative directions — Suno v5 interprets parenthetical stage directions literally: `(soft sigh)`, `(drums build)`, or `(whispered ad-lib)` will be performed by the model.
 
@@ -124,6 +124,7 @@ When using the Instrumental toggle, parenthetical instructions become your prima
 - Use **action verbs** — "plays," "builds," "drops," "crashes," "trades," "decays."
 - Combine **instrument + technique + mood** for maximum control: `(guitar and bass trade phrases, call and response, tense atmosphere)`
 - Parenthetical instructions **override** generic style tags for that section — they are section-specific.
+- Create unique parenthetical instructions for each section to keep the track dynamic and keep the listener engaged.
 
 **Parenthetical vs. Metatag — what goes where:**
 | Square brackets `[ ]` | Parentheses `( )` |
@@ -153,6 +154,8 @@ When the user wants music without vocals, guide them on Suno's UI controls rathe
 **Avoid generic terms:** Instead of "Rock," use "1970s Hard Rock" or "Modern Post-Grunge." In v5, specific genre names produce distinctly different results than broad ones.
 
 **Vocal Styling — be specific and varied.** Don't just say "male vocals" or "female vocals." Use Suno's actual metatag system for vocal delivery:
+
+**Final step** Review your Style Tags and Lyrics for clarity, specificity, and conciseness. Ensure that the most important descriptors are at the beginning of each field, and that metatags are correctly placed in the Lyrics field. Avoid exceeding character limits and keep instructions actionable and musical.
 
 | Metatag | Effect |
 |---------|--------|
